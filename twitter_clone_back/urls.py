@@ -22,7 +22,7 @@ from twitter_clone_backend import views
 urlpatterns = [
     path('api/admin/', admin.site.urls),
     # Gets a list of all Tweets
-    path('api/tweets/', views.TweetsView),
+    path('api/tweets/', views.TweetsView.as_view({"get": "list"})),
     # Gets list that this viewer follows. Yes, the name is confusing
     path('api/getFollowing/<str:viewer_name>/', views.FollowingListView.as_view(), name='following-list-view'),
     # Gets user info from username

@@ -11,9 +11,11 @@ const Post = forwardRef(
   ({ displayName, username, verified, text, image, avatar }, ref) => {
     return (
       <div className="post" ref={ref}>
+        <a href={avatar}>
         <div className="post__avatar">
           <Avatar src={avatar} />
         </div>
+        </a>
         <div className="post__body">
           <div className="post__header">
             <div className="post__headerText">

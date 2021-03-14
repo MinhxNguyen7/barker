@@ -4,6 +4,18 @@
   cursor: pointer;
 }
 
+@media only screen and (max-width: 1000px) and (min-width: 600px){
+  .sidebarOption > h2 {
+    font-size: 2vw !important;
+  }
+}
+
+@media only screen and (max-width: 600px) and (min-width: 400px){
+  .sidebarOption > h2 {
+    font-size: 0 !important;
+  }
+}
+
 .sidebarOption:hover {
   background-color: #e8f5fe;
   border-radius: 30px;

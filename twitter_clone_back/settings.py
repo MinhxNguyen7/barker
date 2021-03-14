@@ -26,7 +26,7 @@ SECRET_KEY = '&qs21bjjw$m6lou=7f54@e&dcs2ii5kh-b6o+=k-x1+ko1(@#w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -122,6 +122,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATIC_ROOT = 'static'
+
 STATIC_URL = '/static/'
 
 REACT_APP_DIR = os.path.join(BASE_DIR, 'twitter-clone-front/')
@@ -133,5 +135,3 @@ STATICFILES_DIRS = [
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
 ]
-
-CORS_ORIGIN_ALLOW_ALL = True

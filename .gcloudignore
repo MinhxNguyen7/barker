@@ -1,0 +1,9 @@
+.git
+.gitignore
+
+# Python pycache:
+__pycache__/
+
+# Ignored by the build system
+/setup.cfg
+twitter-clone-front/node_modules/

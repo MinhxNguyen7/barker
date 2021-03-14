@@ -15,17 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url
 from twitter_clone_backend import views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('api/admin/', admin.site.urls),
     # Gets a list of all Tweets
-    path('tweets/', views.TweetsView),
+    path('api/tweets/', views.TweetsView),
     # Gets list that this viewer follows. Yes, the name is confusing
-    path('getFollowing/<str:viewer_name>/', views.FollowingListView.as_view(), name='following-list-view'),
+    path('api/getFollowing/<str:viewer_name>/', views.FollowingListView.as_view(), name='following-list-view'),
     # Gets user info from username
-    path('getUserInfo/<str:username>/', views.UserInfo.as_view(), name='get-user-info-from-username'),
+    path('api/getUserInfo/<str:username>/', views.UserInfo.as_view(), name='get-user-info-from-username'),
     # Gets a random Tweet. Mostly for testing.
-    path('getRandomTweet/', views.RandomTweetView.as_view(), name='random-tweet')
+    path('api/getRandomTweet/', views.RandomTweetView.as_view(), name='random-tweet'),
+    # For frontend
+    url(r'^', views.Frontend.as_view(), name='frontend')
 ]

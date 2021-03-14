@@ -124,4 +124,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-/.idea
+*.idea/
+.idea\
+.idea/twitter_clone_back.iml
+.idea/workspace.xml

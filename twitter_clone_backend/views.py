@@ -1,10 +1,15 @@
 # from django.shortcuts import render
+from django.conf import settings
+from django.http import HttpResponse
 from rest_framework import viewsets, generics
+from django.views import generic
 
 from .serializers import TweetSerializer, PosterSerializer
 from .models import Tweet, Poster
 
 import random
+import os.path
+import logging
 
 
 # View for all tweets
@@ -53,3 +58,25 @@ class UserInfo(generics.ListAPIView):
             return poster
         else:
             raise LookupError('No user with username "'+str(username)+'" found')
+
+
+class Frontend(generic.View):
+    """
+    Serves the compiled frontend entry point
+    (only works if you have run `npm run build`).
+    """
+
+    def get(self, request):
+        print(os.path.join(settings.REACT_APP_DIR, 'build', 'index.html'))
+        try:
+            with open(os.path.join(settings.REACT_APP_DIR, 'build', 'index.html')) as f:
+                return HttpResponse(f.read())
+        except FileNotFoundError:
+            logging.exception('Production build of app not found')
+            return HttpResponse(
+                """
+                This URL is only used when you have built the production
+                version of the app.
+                """,
+                status=501,
+            )

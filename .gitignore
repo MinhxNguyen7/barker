@@ -128,3 +128,5 @@ dmypy.json
 .idea\
 .idea/twitter_clone_back.iml
 .idea/workspace.xml
+
+twitter-clone-front/node_modules

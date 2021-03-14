@@ -26,21 +26,23 @@ class Feed extends React.Component {
   }
 
   addPost = () =>{
-    if(this.state.loading === false) {
-      const API_URL = "http://localhost:8000/api/"
+    // if(this.state.loading === false) {
+    if(true) {
+      const API_URL = "/api/"
 
       const tweet_url = API_URL + "getRandomTweet/";
       let poster_url = API_URL + "getUserInfo/";
       this.setState({page: this.state.page + 1, loading: true});
 
+
       axios
-        .get(tweet_url)
+        .get(tweet_url)// gets the tweet, including the poster's username
         .then(response1 => {
           let post;
           post = response1.data[0];
           poster_url = poster_url + post['poster'] + '/'
           axios
-            .get(poster_url)
+            .get(poster_url)// gets the poster's info from their username that was acquired above
             .then(response2 => {
               let userInfo = response2.data[0]
               post['username'] = userInfo['username'];
@@ -76,9 +78,7 @@ class Feed extends React.Component {
         <div className="feed__header">
           <h2>Home</h2>
         </div>
-
         <TweetBox/>
-
         <FlipMove>
           {this.state.posts.map((post, index) => (
             <Post
@@ -93,7 +93,7 @@ class Feed extends React.Component {
           ))}
         </FlipMove>
         <button onClick={this.addPost}> load next post </button>
-      </div>
+        </div>
     );
   }
 }

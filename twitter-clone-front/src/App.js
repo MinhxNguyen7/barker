@@ -9,9 +9,6 @@ function App() {
   return (
     // BEM
     <html lang="en">
-      <head>
-        <title>Twittler</title>
-      </head>
       <div className="app">
         <Sidebar />
         <Feed />

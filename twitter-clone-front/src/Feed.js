@@ -9,10 +9,8 @@ import FlipMove from "react-flip-move";
 
 class Feed extends React.Component {
 
-
   constructor(props) {
     super(props);
-    this.myRef = React.createRef();
     this.state = {loading: false, page: 0, posts: []};
     // loads 5 posts first
     for (let i = 0; i < 5; i++) {
@@ -33,7 +31,6 @@ class Feed extends React.Component {
       const tweet_url = API_URL + "getRandomTweet/";
       let poster_url = API_URL + "getUserInfo/";
       this.setState({page: this.state.page + 1, loading: true});
-
 
       axios
         .get(tweet_url)// gets the tweet, including the poster's username

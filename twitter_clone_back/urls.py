@@ -29,6 +29,8 @@ urlpatterns = [
     path('api/getUserInfo/<str:username>/', views.UserInfo.as_view(), name='get-user-info-from-username'),
     # Gets a random Tweet. Mostly for testing.
     path('api/getRandomTweet/', views.RandomTweetView.as_view(), name='random-tweet'),
+    # Gets explanation from pk/name of explanation
+    path('api/getExplanation/<str:expl_name>', views.ExplanationView.as_view(), name='get-explanation-from-name'),
     # For frontend
     url(r'^', views.Frontend.as_view(), name='frontend')
 ]

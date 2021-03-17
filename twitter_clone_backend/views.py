@@ -4,8 +4,8 @@ from django.http import HttpResponse
 from rest_framework import viewsets, generics
 from django.views import generic
 
-from .serializers import TweetSerializer, PosterSerializer
-from .models import Tweet, Poster
+from .serializers import TweetSerializer, PosterSerializer, ExplanationSerializer
+from .models import Tweet, Poster, Explanation
 
 import random
 import os.path
@@ -20,6 +20,7 @@ class TweetsView(viewsets.ModelViewSet):
         return Tweet.objects.all()
 
 
+# TODO: Check if this works
 class FollowingListView(generics.ListAPIView):
     serializer_class = PosterSerializer
 
@@ -58,6 +59,14 @@ class UserInfo(generics.ListAPIView):
             return poster
         else:
             raise LookupError('No user with username "'+str(username)+'" found')
+
+
+class ExplanationView(generics.ListAPIView):
+    serializer_class = ExplanationSerializer
+
+    def get_queryset(self):
+        expl_name = self.kwargs['expl_name']
+        return Explanation.objects.filter(pk=expl_name)
 
 
 class Frontend(generic.View):

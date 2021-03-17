@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tweet, Poster, Viewer
+from .models import Tweet, Poster, Viewer, Explanation
 
 
 class TweetAdmin(admin.ModelAdmin):
@@ -10,15 +10,16 @@ class PosterAdmin(admin.ModelAdmin):
     list_display = ('username', 'displayName', 'avatar', 'verified')
 
 
-class FollowingListInLine(admin.TabularInline):
-    model = Viewer.following.through
+class ExplanationAdmin(admin.ModelAdmin):
+    pass
 
 
 class ViewerAdmin(admin.ModelAdmin):
-    inlines = [FollowingListInLine]
+    pass
 
 
 # Register  models.
 admin.site.register(Tweet, TweetAdmin)
 admin.site.register(Poster, PosterAdmin)
 admin.site.register(Viewer, ViewerAdmin)
+admin.site.register(Explanation, ExplanationAdmin)

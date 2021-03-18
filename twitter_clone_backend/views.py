@@ -20,7 +20,6 @@ class TweetsView(viewsets.ModelViewSet):
         return Tweet.objects.all()
 
 
-# TODO: Check if this works
 class FollowingListView(generics.ListAPIView):
     serializer_class = PosterSerializer
 

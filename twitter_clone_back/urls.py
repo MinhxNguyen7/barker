@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
+from django.views.generic.base import RedirectView
+from django.contrib.staticfiles.storage import staticfiles_storage
+
 from twitter_clone_backend import views
 
 
@@ -31,6 +34,8 @@ urlpatterns = [
     path('api/getRandomTweet/', views.RandomTweetView.as_view(), name='random-tweet'),
     # Gets explanation from pk/name of explanation
     path('api/getExplanation/<str:expl_name>', views.ExplanationView.as_view(), name='get-explanation-from-name'),
+    # For favicon
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url("favicon.ico"))),
     # For frontend
     url(r'^', views.Frontend.as_view(), name='frontend')
 ]

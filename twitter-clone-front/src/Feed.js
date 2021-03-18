@@ -19,42 +19,53 @@ class Feed extends React.Component {
   }
 
 
+  // Only update DOM when things aren't loading
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     return !this.state.loading;
   }
 
   addPost = () =>{
-    // if(this.state.loading === false) {
-    if(true) {
-      const API_URL = "/api/"
+    const API_URL = "/api/"
 
-      const tweet_url = API_URL + "getRandomTweet/";
-      let poster_url = API_URL + "getUserInfo/";
-      this.setState({page: this.state.page + 1, loading: true});
+    const tweet_url = API_URL + "getRandomTweet/";
+    let poster_url = API_URL + "getUserInfo/";
+    this.setState({page: this.state.page + 1, loading: true});
 
-      axios
-        .get(tweet_url)// gets the tweet, including the poster's username
-        .then(response1 => {
-          let post;
-          post = response1.data[0];
-          poster_url = poster_url + post['poster'] + '/'
+    axios
+      .get(tweet_url)// gets the tweet, including the poster's username
+      .then(response => {
+        let post;
+        post = response.data[0];
+        poster_url = poster_url + post['poster'] + '/'
+
+        // If the post returns an API redirect, set image url to the API's answer
+        if(post['image'].startsWith('api:')){
           axios
-            .get(poster_url)// gets the poster's info from their username that was acquired above
-            .then(response2 => {
-              let userInfo = response2.data[0]
-              post['username'] = userInfo['username'];
-              post['displayName'] = userInfo['displayName'];
-              post['avatar'] = userInfo['avatar']
-              post['verified'] = userInfo['verified'];
-              console.log(post);
-              this.setState({posts: this.state.posts.concat(post)});
-              this.setState({loading: false});
-            })
-            .catch(err2 => {console.log("axios error2: " + err2); this.setState({loading: false});})
-        })
-        .catch(err1 => {console.log("axios error1: " + err1); this.setState({loading: false});})
+            .get(post['image'].substring(4))
+            .then(response1 => post['image'] = response1.data)
+            .catch(err1 => console.log("axios error1: " + err1))
+          // Sets image url to a loading gif while InspiroBot returns a photo
+          post['image'] = "https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif"
+        }
+
+        axios
+          .get(poster_url) // gets the poster's info from their username that was acquired above
+          .then(response2 => {
+            const userInfo = response2.data[0];
+            post['username'] = userInfo['username'];
+            post['displayName'] = userInfo['displayName'];
+            post['avatar'] = userInfo['avatar']
+            post['verified'] = userInfo['verified'];
+            // console.log(post);
+            // Adds the post info into the state
+            this.setState({posts: this.state.posts.concat(post)});
+            this.setState({loading: false});
+          })
+          .catch(err2 => {console.log("axios error2: " + err2); this.setState({loading: false});})
+
+      })
+      .catch(err => {console.log("axios error: " + err); this.setState({loading: false});})
     }
-  }
 
   handleScroll = (e) => {
     e.preventDefault()
@@ -63,7 +74,7 @@ class Feed extends React.Component {
     // checks if the user has scrolled to the bottom of the element
     // only add post if a post isn't already loading
     if (this.state.loading === false && height_target <= Math.ceil(e.target.clientHeight) + 100) {
-      console.log("loading new post, triggered by scrolling")
+      // console.log("loading new post, triggered by scrolling")
       this.addPost()
     }
   }

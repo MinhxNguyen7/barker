@@ -26,7 +26,8 @@ class Tweet(models.Model):
     poster = models.ForeignKey(Poster, on_delete=models.CASCADE, default='noUser')
     text = models.TextField(default='')
     image = models.TextField(default='', blank=True) # url of attached image. Can be empty string
-    explanation = models.ForeignKey(Explanation, on_delete=models.CASCADE, default='default', blank=True) # Relation to explanation
+    explanation = models.ForeignKey( # Relation to explanation. Can be empty and/or null
+        Explanation, on_delete=models.CASCADE, default='default', blank=True, null=True)
 
     def __str__(self):
         return f"Tweet by user {self.poster}:\n{self.text}"

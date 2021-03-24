@@ -2,14 +2,34 @@
 from django.conf import settings
 from django.http import HttpResponse
 from rest_framework import viewsets, generics
+from rest_framework.response import Response
 from django.views import generic
 
 from .serializers import TweetSerializer, PosterSerializer, ExplanationSerializer
-from .models import Tweet, Poster, Explanation
+from .models import Tweet, Poster, Explanation, Viewer
 
 import random
 import os.path
 import logging
+
+
+class ViewersView(viewsets.ModelViewSet):
+
+    def list(self, request, *args, **kwargs):
+        return Response(Viewer.objects.all().values_list('name', flat=True))
+
+
+class ViewerToIdList(viewsets.ModelViewSet):
+
+    def list(self, request, *args, **kwargs):
+        viewer_name = self.kwargs['viewer_name']
+
+        # List of posters' names who are followed by the viewer above
+        following_list = Poster.objects.filter(viewer__name=viewer_name).values_list('username', flat=True)
+
+        # 'Pure,' int list of post IDs
+        ids_list = Tweet.objects.filter(poster__username__in=following_list).values_list('id', flat=True)
+        return Response(ids_list)
 
 
 # View for all tweets

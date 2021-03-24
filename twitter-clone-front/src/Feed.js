@@ -11,25 +11,28 @@ class Feed extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {loading: false, page: 0, posts: []};
+    this.state = {loading: false, viewers:[], posts: []};
+  }
+
+  componentDidMount() {
     // loads 5 posts first
     for (let i = 0; i < 5; i++) {
       this.addPost();
     }
   }
 
-
   // Only update DOM when things aren't loading
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     return !this.state.loading;
   }
 
-  addPost = () =>{
+
+  addPost = () => {
     const API_URL = "/api/"
 
     const tweet_url = API_URL + "getRandomTweet/";
     let poster_url = API_URL + "getUserInfo/";
-    this.setState({page: this.state.page + 1, loading: true});
+    this.setState({loading: true});
 
     axios
       .get(tweet_url)// gets the tweet, including the poster's username

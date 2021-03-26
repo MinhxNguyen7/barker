@@ -24,7 +24,7 @@ class Explanation(models.Model):
 
 class Tweet(models.Model):
     poster = models.ForeignKey(Poster, on_delete=models.CASCADE, default='noUser')
-    text = models.TextField(default='')
+    text = models.TextField(default='', max_length=141)
     image = models.TextField(default='', blank=True) # url of attached image. Can be empty string
     explanation = models.ForeignKey( # Relation to explanation. Can be empty and/or null
         Explanation, on_delete=models.CASCADE, default='default', blank=True, null=True)

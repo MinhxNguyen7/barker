@@ -6,6 +6,8 @@ import Post from "./Post";
 import "./Feed.css";
 import FlipMove from "react-flip-move";
 
+import mocker from 'mocker-data-generator'
+
 
 class Feed extends React.Component {
 
@@ -45,26 +47,37 @@ class Feed extends React.Component {
         if(post['image'].startsWith('api:')){
           axios
             .get(post['image'].substring(4))
-            .then(response1 => post['image'] = response1.data)
-            .catch(err1 => console.log("axios error1: " + err1))
+            .then(image_response => post['image'] = image_response.data)
+            .catch(err1 => console.log("axios error with image api: " + err1))
           // Sets image url to a loading gif while InspiroBot returns a photo
           post['image'] = "https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif"
         }
 
         axios
           .get(poster_url) // gets the poster's info from their username that was acquired above
-          .then(response2 => {
-            const userInfo = response2.data[0];
+          .then(poster_response => {
+            const userInfo = poster_response.data[0];
             post['username'] = userInfo['username'];
             post['displayName'] = userInfo['displayName'];
             post['avatar'] = userInfo['avatar']
             post['verified'] = userInfo['verified'];
-            // console.log(post);
+
+            // For random username/displayName generation
+            if(post['username'].startsWith("random:")){
+              const fake_user = getRandomUser()
+
+              post['username'] = fake_user['username'];
+              post['displayName'] = fake_user['displayName'];
+            }
+
             // Adds the post info into the state
             this.setState({posts: this.state.posts.concat(post)});
             this.setState({loading: false});
           })
-          .catch(err2 => {console.log("axios error2: " + err2); this.setState({loading: false});})
+          .catch(err2 => {
+            console.log("axios error with getting user info: " + err2);
+            this.setState({loading: false});
+            })
 
       })
       .catch(err => {console.log("axios error: " + err); this.setState({loading: false});})
@@ -110,3 +123,23 @@ class Feed extends React.Component {
 }
 
 export default Feed;
+
+// Function for getting random user using mocker-data-generator
+// This is way too complicated
+function getRandomUser(){
+  const mocker_schema = {
+    firstName: {faker: 'name.firstName'},
+    lastName: {faker: 'name.lastName'},
+    username: {function: function() {
+      return (this.object.lastName+this.object.firstName+Math.floor(Math.random() * 10))
+    }},
+    displayName: {function: function() {
+      return (this.object.lastName + " " + this.object.firstName)
+    }}
+  }
+
+  const fake_user = mocker().schema('user', mocker_schema, 1).buildSync()['user'][0]
+  //console.log(fake_user)
+
+  return fake_user
+}

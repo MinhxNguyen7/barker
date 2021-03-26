@@ -66,7 +66,11 @@ def format_tweets(input_arr, remove_rt=True, remove_links=True):
         # remove links
         # TODO: Make this work
         if remove_links:
-            words = [word for word in words if ("https:" not in word) or ("http:" not in word)]
+            new_words = []
+            for word in words:
+                if "http" not in word:
+                    new_words.append(word)
+            words = new_words
 
         # join everything back together
         tweet = " ".join(words)
@@ -78,7 +82,7 @@ def format_tweets(input_arr, remove_rt=True, remove_links=True):
         if len(tweet) < 141:
             output.append(tweet)
 
-    return np.asarray(output)
+    return output
 
 
 def save_tweets_list(tweets, poster_name: str, explanation_name: str = None):

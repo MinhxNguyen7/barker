@@ -9,3 +9,4 @@ wincertstore==0.2
 
 numpy~=1.19.5
 pandas~=1.1.5
+charset_normalizer

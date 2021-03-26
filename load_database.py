@@ -7,6 +7,7 @@ from charset_normalizer import CharsetNormalizerMatches as CnM
 
 """
 Note: Functions must be run through the manage.py shell
+Activate by calling "python manage.py shell" in environment prompt
 """
 
 
@@ -14,16 +15,16 @@ def tweet_txt_to_np(
         fp: str,
         separator="\n====================",
         normalize_encoding=True
-    ):
+):
     """
     Converts txt output of GPT-2 into a numpy list of strings
     """
 
     encoding = None
     if normalize_encoding:
-        cnm = CnM.normalize(fp) # normalize the encoding
+        cnm = CnM.normalize(fp)  # normalize the encoding
         encoding = cnm.encoding
-        fp = append_before_ext(fp, "-"+encoding) # select the normalized text
+        fp = append_before_ext(fp, "-" + encoding)  # select the normalized text
 
     df = pd.read_csv(
         fp,
@@ -35,7 +36,7 @@ def tweet_txt_to_np(
     )
 
     if normalize_encoding:
-        os.remove(fp) # delete the normalized text file (if enabled)
+        os.remove(fp)  # delete the normalized text file (if enabled)
 
     arr = np.squeeze(df[df['text'] != "===================="].values)
 
@@ -64,7 +65,6 @@ def format_tweets(input_arr, remove_rt=True, remove_links=True):
                 words = words[2:]
 
         # remove links
-        # TODO: Make this work
         if remove_links:
             new_words = []
             for word in words:
@@ -75,7 +75,7 @@ def format_tweets(input_arr, remove_rt=True, remove_links=True):
         # join everything back together
         tweet = " ".join(words)
 
-        # remove stray tokens
+        # remove stray tokens; doesn't seem to work
         tweet.replace("<|startoftext|>", "")
 
         # only save if formatted tweet is short enough

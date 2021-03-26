@@ -89,7 +89,7 @@ class Feed extends React.Component {
 
     // checks if the user has scrolled to the bottom of the element
     // only add post if a post isn't already loading
-    if (this.state.loading === false && height_target <= Math.ceil(e.target.clientHeight) + 100) {
+    if (height_target <= Math.ceil(e.target.clientHeight) + 100) {
       // console.log("loading new post, triggered by scrolling")
       this.addPost()
     }

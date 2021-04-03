@@ -18,7 +18,7 @@ class Feed extends React.Component {
 
   componentDidMount() {
     // loads 5 posts first
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
       this.addPost();
     }
   }
@@ -93,6 +93,7 @@ class Feed extends React.Component {
     if (this.state.loading === false && height_target <= Math.ceil(e.target.clientHeight) + 300) {
       // console.log("loading new post, triggered by scrolling")
       this.addPost()
+      this.addPost()
     }
   }
 
@@ -132,10 +133,10 @@ function getRandomUser(){
     firstName: {faker: 'name.firstName'},
     lastName: {faker: 'name.lastName'},
     username: {function: function() {
-      return (this.object.lastName+this.object.firstName+Math.floor(Math.random() * 10))
+      return (this.object.firstName+this.object.lastName+Math.floor(Math.random() * 10))
     }},
     displayName: {function: function() {
-      return (this.object.lastName + " " + this.object.firstName)
+      return (this.object.firstName + " " + this.object.lastName)
     }}
   }
 

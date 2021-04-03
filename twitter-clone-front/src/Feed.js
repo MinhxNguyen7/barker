@@ -45,12 +45,13 @@ class Feed extends React.Component {
 
         // If the post returns an API redirect, set image url to the API's answer
         if(post['image'].startsWith('api:')){
+          // Sets image url to a loading gif while InspiroBot returns a photo
+          post['image'] = "https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif"
+
           axios
             .get(post['image'].substring(4))
             .then(image_response => post['image'] = image_response.data)
             .catch(err1 => console.log("axios error with image api: " + err1))
-          // Sets image url to a loading gif while InspiroBot returns a photo
-          post['image'] = "https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif"
         }
 
         axios
@@ -89,7 +90,7 @@ class Feed extends React.Component {
 
     // checks if the user has scrolled to the bottom of the element
     // only add post if a post isn't already loading
-    if (height_target <= Math.ceil(e.target.clientHeight) + 100) {
+    if (this.state.loading === false && height_target <= Math.ceil(e.target.clientHeight) + 300) {
       // console.log("loading new post, triggered by scrolling")
       this.addPost()
     }

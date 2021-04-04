@@ -10,7 +10,6 @@ from .models import Tweet, Poster, Explanation, Viewer
 
 import random
 import os.path
-import logging
 
 
 class ViewersView(viewsets.ModelViewSet):
@@ -20,6 +19,9 @@ class ViewersView(viewsets.ModelViewSet):
 
 
 class ViewerToIdList(viewsets.ModelViewSet):
+    """
+    Returns a list of post IDs for a viewer
+    """
 
     def list(self, request, *args, **kwargs):
         viewer_name = self.kwargs['viewer_name']
@@ -32,8 +34,8 @@ class ViewerToIdList(viewsets.ModelViewSet):
         return Response(ids_list)
 
 
-# View for all tweets
 class TweetsView(viewsets.ModelViewSet):
+    """View for all tweets"""
     serializer_class = TweetSerializer
 
     def get_queryset(self):
@@ -55,13 +57,13 @@ class FollowingListView(generics.ListAPIView):
 
 
 class RandomTweetView(generics.ListAPIView):
+    """
+    Gets a random Tweet by looking at primary keys
+    of all Tweets and picking one.
+    """
     serializer_class = TweetSerializer
 
     def get_queryset(self):
-        """
-        Gets a random Tweet by looking at primary keys
-        of all Tweets and picking one.
-        """
         pks = Tweet.objects.values_list('pk', flat=True)
         random_pk = random.sample(list(pks), 1)[0]
         return Tweet.objects.filter(pk=random_pk)
@@ -91,7 +93,7 @@ class ExplanationView(generics.ListAPIView):
 class Frontend(generic.View):
     """
     Serves the compiled frontend entry point
-    (only works if you have run `npm run build`).
+    Remember to run "npm run build" first
     """
 
     def get(self, request):
@@ -100,7 +102,6 @@ class Frontend(generic.View):
             with open(os.path.join(settings.REACT_APP_DIR, 'build', 'index.html')) as f:
                 return HttpResponse(f.read())
         except FileNotFoundError:
-            logging.exception('Production build of app not found')
             return HttpResponse(
                 """
                 This URL is only used when you have built the production

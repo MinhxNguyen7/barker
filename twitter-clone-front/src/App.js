@@ -1,21 +1,28 @@
 import React from "react";
+import settings from "./settings"
 
 import Sidebar from "./Sidebar";
 import Feed from "./Feed";
 import Widgets from "./Widgets";
 
 import "./App.css";
+import axios from "axios";
 
 
 class App extends React.Component {
   constructor(props){
     super(props)
-    this.state = {viewerNum: 0, viewersList:['a','b','c','d']}
+    this.state = {viewerNum: 0, viewersList:[]}
     this.nextViewer = this.nextViewer.bind(this)
   }
 
   componentDidMount(){
-    // Get list of viewers from API
+    axios
+      .get(settings.GET_VIEWERS_URL)
+      .then(response =>{
+        this.setState({viewersList: response.data})
+      })
+      .catch(err => console.log("Error retrieving viewers list: " + err))
   }
 
   nextViewer(){

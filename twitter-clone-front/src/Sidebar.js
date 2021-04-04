@@ -12,26 +12,33 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { Button } from "@material-ui/core";
 
-function Sidebar() {
-  return (
-    <div className="sidebar">
-      <TwitterIcon className="sidebar__twitterIcon" />
+class Sidebar extends React.Component {
+  constructor(props){
+    super(props)
+  }
 
-      <SidebarOption active Icon={HomeIcon} text="Home" />
-      <SidebarOption Icon={SearchIcon} text="Explore" />
-      <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
-      <SidebarOption Icon={MailOutlineIcon} text="Messages" />
-      <SidebarOption Icon={BookmarkBorderIcon} text="Bookmarks" />
-      <SidebarOption Icon={ListAltIcon} text="Lists" />
-      <SidebarOption Icon={PermIdentityIcon} text="Profile" />
-      <SidebarOption Icon={MoreHorizIcon} text="More" />
+  render(){
+    return (
+      <div className="sidebar">
+        <TwitterIcon className="sidebar__twitterIcon" />
 
-      {/* Button -> Tweet */}
-      <Button variant="outlined" className="sidebar__tweet" fullWidth>
-        Tweet
-      </Button>
-    </div>
-  );
+        <SidebarOption active Icon={HomeIcon} text="Home" />
+        <SidebarOption Icon={SearchIcon} text="Explore" />
+        <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
+        <SidebarOption Icon={MailOutlineIcon} text="Messages" />
+        <SidebarOption Icon={BookmarkBorderIcon} text="Bookmarks" />
+        <SidebarOption Icon={ListAltIcon} text="Lists" />
+        <SidebarOption Icon={PermIdentityIcon} text="Profile" onClick={this.props.nextViewer}/>
+
+
+        <SidebarOption Icon={MoreHorizIcon} text="More" />
+
+        <Button variant="outlined" className="sidebar__tweet" fullWidth>
+          Tweet
+        </Button>
+      </div>
+    );
+  }
 }
 
 export default Sidebar;

@@ -10,10 +10,9 @@ import mocker from 'mocker-data-generator'
 
 
 class Feed extends React.Component {
-
   constructor(props) {
     super(props);
-    this.state = {loading: false, viewers:[], posts: []};
+    this.state = {loading: false, posts: []};
   }
 
   componentDidMount() {
@@ -25,7 +24,8 @@ class Feed extends React.Component {
 
   // Only update DOM when things aren't loading
   shouldComponentUpdate(nextProps, nextState, nextContext) {
-    return !this.state.loading;
+    //return !this.state.loading;
+    return true
   }
 
 
@@ -92,11 +92,9 @@ class Feed extends React.Component {
     // only add post if a post isn't already loading
     if (this.state.loading === false && height_target <= Math.ceil(e.target.clientHeight) + 300) {
       // console.log("loading new post, triggered by scrolling")
-      this.addPost()
-      this.addPost()
+      for(let i=0;i<3;i++){this.addPost()}
     }
   }
-
 
   render() {
     return (
@@ -124,8 +122,6 @@ class Feed extends React.Component {
   }
 }
 
-export default Feed;
-
 // Function for getting random user using mocker-data-generator
 // This is way too complicated
 function getRandomUser(){
@@ -145,3 +141,5 @@ function getRandomUser(){
 
   return fake_user
 }
+
+export default Feed;

@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios"
 
+import settings from "./settings"
+
 import TweetBox from "./TweetBox";
 import Post from "./Post";
 import "./Feed.css";
@@ -30,18 +32,14 @@ class Feed extends React.Component {
 
 
   addPost = () => {
-    const API_URL = "/api/"
-
-    const tweet_url = API_URL + "getRandomTweet/";
-    let poster_url = API_URL + "getUserInfo/";
     this.setState({loading: true});
 
     axios
-      .get(tweet_url)// gets the tweet, including the poster's username
+      .get(settings.GET_RANDOM_TWEET_URL)// gets the tweet, including the poster's username
       .then(response => {
         let post;
         post = response.data[0];
-        poster_url = poster_url + post['poster'] + '/'
+        const poster_url = settings.GET_POSTER_INFO_URL + post['poster'] + '/'
 
         // If the post returns an API redirect, set image url to the API's answer
         if(post['image'].startsWith('api:')){
@@ -129,7 +127,7 @@ function getRandomUser(){
     firstName: {faker: 'name.firstName'},
     lastName: {faker: 'name.lastName'},
     username: {function: function() {
-      return (this.object.firstName+this.object.lastName+Math.floor(Math.random() * 10))
+      return (this.object.firstName+this.object.lastName)
     }},
     displayName: {function: function() {
       return (this.object.firstName + " " + this.object.lastName)

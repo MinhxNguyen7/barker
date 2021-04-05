@@ -37,8 +37,7 @@ class Feed extends React.Component {
     axios
       .get(settings.GET_RANDOM_TWEET_URL)// gets the tweet, including the poster's username
       .then(response => {
-        let post;
-        post = response.data[0];
+        let post = response.data[0];
         const poster_url = settings.GET_POSTER_INFO_URL + post['poster'] + '/'
 
         // If the post returns an API redirect, set image url to the API's answer
@@ -78,17 +77,18 @@ class Feed extends React.Component {
             this.setState({loading: false});
             })
 
-      })
-      .catch(err => {console.log("axios error: " + err); this.setState({loading: false});})
+          })
+          .catch(err => {console.log("axios error: " + err); this.setState({loading: false});})
     }
 
-  handleScroll = (e) => {
-    e.preventDefault()
-    const height_target = Math.round(e.target.scrollHeight - e.target.scrollTop)
+  // TODO: Implement scroll load queuing 
+  handleScroll = (element) => {
+    element.preventDefault()
+    const height_target = Math.round(element.target.scrollHeight - element.target.scrollTop)
 
     // checks if the user has scrolled to the bottom of the element
     // only add post if a post isn't already loading
-    if (this.state.loading === false && height_target <= Math.ceil(e.target.clientHeight) + 300) {
+    if (this.state.loading === false && height_target <= Math.ceil(element.target.clientHeight) + 300) {
       // console.log("loading new post, triggered by scrolling")
       for(let i=0;i<3;i++){this.addPost()}
     }

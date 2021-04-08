@@ -11,9 +11,12 @@ import PublishIcon from "@material-ui/icons/Publish";
 
 
 
-
+// TODO: Add explanation support
+//TODO: Autoplay when in view
 const Post = forwardRef(({ displayName, username, verified, text, image, avatar, explanation }, ref) => {
 
+  // Check if react-player can play media
+  // Falls back to image display if ir cannot
   let media
   if(ReactPlayer.canPlay(image)){
     media = (

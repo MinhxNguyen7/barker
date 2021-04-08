@@ -1,4 +1,6 @@
 import React, { forwardRef } from "react";
+import ReactPlayer from 'react-player/lazy'
+
 import "./Post.css";
 import { Avatar } from "@material-ui/core";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
@@ -11,6 +13,22 @@ import PublishIcon from "@material-ui/icons/Publish";
 
 
 const Post = forwardRef(({ displayName, username, verified, text, image, avatar, explanation }, ref) => {
+
+  let media
+  if(ReactPlayer.canPlay(image)){
+    media = (
+      <div className="player-wrapper">
+      <ReactPlayer url={image}
+        muted={true} loop={true} playing={false} height={"45vh"} width={null}>
+        <div/>
+      </ReactPlayer>
+    </div>)
+    console.log("play!")
+  }
+  else{
+    media = <img src={image} alt="" />
+    console.log("image!")
+  }
 
   return (
     <div className="post" ref={ref}>
@@ -35,9 +53,7 @@ const Post = forwardRef(({ displayName, username, verified, text, image, avatar,
             <p>{text}</p>
           </div>
         </div>
-
-        <img src={image} alt="" />
-
+        {media}
         <div className="post__footer">
           <ChatBubbleOutlineIcon fontSize="small" />
           <RepeatIcon fontSize="small" />

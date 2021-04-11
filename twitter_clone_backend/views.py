@@ -89,6 +89,13 @@ class ExplanationView(generics.ListAPIView):
         expl_name = self.kwargs['expl_name']
         return Explanation.objects.filter(pk=expl_name)
 
+class PostFromIDView(generics.ListAPIView):
+    serializer_class = TweetSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['id']
+        return Tweet.objects.filter(pk=pk)
+
 
 class Frontend(generic.View):
     """

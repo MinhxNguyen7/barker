@@ -37,6 +37,7 @@ urlpatterns = [
     path('api/getExplanation/<str:expl_name>/', views.ExplanationView.as_view(), name='get-explanation-from-name'),
     # Gets list of post IDs for a viewer
     path('api/ViewerToId/<str:viewer_name>/', views.ViewerToIdList.as_view({"get": "list"}), name='viewer-to-id-view'),
+    path('api/getPostFromID/<int:id>/', views.PostFromIDView.as_view(), name='post-from-id-view'),
     # For frontend
     url(r'^', views.Frontend.as_view(), name='frontend')
 ]

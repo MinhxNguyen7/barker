@@ -20,7 +20,7 @@ const Post = forwardRef(({ displayName, username, verified, text, image, avatar,
   let media
   if(ReactPlayer.canPlay(image)){
     media = (
-      <div className="player-wrapper">
+    <div className="player-wrapper">
       <ReactPlayer url={image}
         muted={true} loop={true} playing={false} height={"45vh"} width={null}>
         <div/>
@@ -28,9 +28,8 @@ const Post = forwardRef(({ displayName, username, verified, text, image, avatar,
     </div>)
     console.log("play!")
   }
-  else{
+  else if (image !== "" && image != null){
     media = <img src={image} alt="" />
-    console.log("image!")
   }
 
   return (

@@ -21,6 +21,7 @@ class App extends React.Component {
       .get(settings.GET_VIEWERS_URL)
       .then(response =>{
         this.setState({viewersList: response.data})
+        console.log("Recieved users: " + this.state.viewersList)
       })
       .catch(err => console.log("Error retrieving viewers list: " + err))
   }
@@ -34,7 +35,6 @@ class App extends React.Component {
     else{
       this.setState({viewerNum: 0})
     }
-    // console.log("Invoked nextViewer. Value: "+this.state.viewer)
   }
 
   render(){

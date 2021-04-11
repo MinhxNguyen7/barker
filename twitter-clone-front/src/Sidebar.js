@@ -13,10 +13,6 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { Button } from "@material-ui/core";
 
 class Sidebar extends React.Component {
-  constructor(props){
-    super(props)
-  }
-
   render(){
     return (
       <div className="sidebar">
@@ -33,7 +29,7 @@ class Sidebar extends React.Component {
 
         <SidebarOption Icon={MoreHorizIcon} text="More" />
 
-        <Button variant="outlined" className="sidebar__tweet" fullWidth>
+        <Button variant="outlined" className="sidebar__tweet">
           Tweet
         </Button>
       </div>

@@ -8,13 +8,13 @@
   max-width: 40vw;
 }
 
-@media only screen and (max-width: 400px){
+@media only screen and (max-width: 420px){
   .sidebar {
-    display: none;
+    display: none !important;
   }
 }
 
-@media only screen and (max-width: 1024px) and (min-width: 400px){
+@media only screen and (max-width: 1024px) and (min-width: 420px){
   .sidebar {
     max-width: 40%;
   }

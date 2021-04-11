@@ -14,41 +14,76 @@ import mocker from 'mocker-data-generator'
 class Feed extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {loading: false, posts: []};
+    this.state = {loading: false, posts: [], idList: [], viewedList: []};
   }
 
   componentDidMount() {
     // loads 5 posts first
-    for (let i = 0; i < 6; i++) {
-      this.addPost();
-    }
   }
 
+  /*
   // Only update DOM when things aren't loading
   shouldComponentUpdate(nextProps, nextState, nextContext) {
-    //return !this.state.loading;
-    return true
+    return !this.state.loading;
+  }
+  */
+
+  componentDidUpdate(prevProps){
+    // Check if Viewer has been changed
+    if(prevProps.viewer !== this.props.viewer){
+      this.setState({posts: [], loading: true})
+
+      const viewerURL = settings.GET_IDs_FROM_VIEWER_URL + this.props.viewer + "/"
+      console.log("Getting IDs from: " + viewerURL)
+      axios
+        .get(viewerURL)
+        .then((reponse)=>{
+          const data = reponse.data
+          console.log(data)
+
+          this.setState({idList: data})
+
+          for (let i = 0; i < 6; i++) {
+            this.addPost();
+          }
+
+          this.setState({loading: false})
+        })
+        .catch(err=>{console.log(err)})
+    }
   }
 
 
   addPost = () => {
     this.setState({loading: true});
 
+    // Gets a random ID and removes it from idList
+    const id = this.state.idList.splice(Math.floor(Math.random() * this.state.idList.length), 1)
+
+    const postURL = settings.GET_POST_FROM_ID + id + "/"
+    console.log("Getting post from: " + postURL)
+    
     axios
-      .get(settings.GET_RANDOM_TWEET_URL)// gets the tweet, including the poster's username
+      .get(postURL)// gets the tweet, including the poster's username
       .then(response => {
         let post = response.data[0];
         const poster_url = settings.GET_POSTER_INFO_URL + post['poster'] + '/'
 
-        // If the post returns an API redirect, set image url to the API's answer
+        // If the post's image URL contains API redirect, set image url to the API's answer
         if(post['image'].startsWith('api:')){
-          // Sets image url to a loading gif while InspiroBot returns a photo
-          post['image'] = "https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif"
-
           axios
             .get(post['image'].substring(4))
             .then(image_response => post['image'] = image_response.data)
-            .catch(err1 => console.log("axios error with image api: " + err1))
+            .catch(err => console.log(err + "—retrieving from " + post['image'].substring(4)))
+
+          // Sets image url to a loading gif while waiting for photo
+          post['image'] = "https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif"
+        }
+
+        // If post's text starts with [repeat] tag, put post id back into idList
+        if(post['text'].startsWith('[repeat]')){
+          post['text'] = post['text'].substring(8)
+          this.state.idList.push(id)
         }
 
         axios
@@ -60,7 +95,7 @@ class Feed extends React.Component {
             post['avatar'] = userInfo['avatar']
             post['verified'] = userInfo['verified'];
 
-            // For random username/displayName generation
+            // For random name generation
             if(post['username'].startsWith("random:")){
               const fake_user = getRandomUser()
 
@@ -69,17 +104,15 @@ class Feed extends React.Component {
             }
 
             // Adds the post info into the state
-            this.setState({posts: this.state.posts.concat(post)});
-            this.setState({loading: false});
+            this.setState({posts: this.state.posts.concat(post), loading: false});
           })
           .catch(err2 => {
             console.log("axios error with getting user info: " + err2);
             this.setState({loading: false});
             })
-
-          })
-          .catch(err => {console.log("axios error: " + err); this.setState({loading: false});})
-    }
+      })
+      .catch(err => {console.log("axios error: " + err); this.setState({loading: false});})
+  }
 
   // TODO: Implement scroll load queuing 
   handleScroll = (element) => {
@@ -87,10 +120,20 @@ class Feed extends React.Component {
     const height_target = Math.round(element.target.scrollHeight - element.target.scrollTop)
 
     // checks if the user has scrolled to the bottom of the element
-    // only add post if a post isn't already loading
-    if (this.state.loading === false && height_target <= Math.ceil(element.target.clientHeight) + 300) {
-      // console.log("loading new post, triggered by scrolling")
-      for(let i=0;i<3;i++){this.addPost()}
+    if (height_target <= Math.ceil(element.target.clientHeight) + 300) {
+      // Check if there are any posts left
+      if(this.state.idList.length > 0){
+        // only add post if a post isn't already loading
+        if(this.state.loading === false) {
+          for(let i=0;i<3 && this.state.idList.length > 0;i++)
+            this.addPost()
+        }
+        else {} // Add to queue
+      }
+      else{
+        console.log("Out of posts!")
+        // Do something when it runs out of posts
+      }
     }
   }
 

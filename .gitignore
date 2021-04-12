@@ -131,3 +131,4 @@ twitter-clone-front/node_modules
 /twitter-clone-front/node_modules/
 /data/
 .vscode/settings.json
+.idea/workspace.xml

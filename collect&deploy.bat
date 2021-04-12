@@ -4,7 +4,7 @@ ECHO OFF
 call d:/Apps/Anaconda/Scripts/activate mysite
 
 d:
-cd Programming\twitter_clone\twitter-clone-back
+cd \Programming\twitter_clone\twitter-clone-front
 
 :: Build static React site
 npm run build

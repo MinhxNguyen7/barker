@@ -18,7 +18,7 @@ class Sidebar extends React.Component {
       <div className="sidebar">
         <TwitterIcon className="sidebar__twitterIcon" />
 
-        <SidebarOption active Icon={HomeIcon} text="Home" />
+        <SidebarOption Icon={HomeIcon} text="Home" />
         <SidebarOption Icon={SearchIcon} text="Explore" />
         <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
         <SidebarOption Icon={MailOutlineIcon} text="Messages" />

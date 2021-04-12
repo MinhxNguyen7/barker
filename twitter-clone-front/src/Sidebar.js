@@ -24,7 +24,7 @@ class Sidebar extends React.Component {
         <SidebarOption Icon={MailOutlineIcon} text="Messages" />
         <SidebarOption Icon={BookmarkBorderIcon} text="Bookmarks" />
         <SidebarOption Icon={ListAltIcon} text="Lists" />
-        <SidebarOption Icon={PermIdentityIcon} text="Profile" onClick={this.props.nextViewer}/>
+        <SidebarOption active Icon={PermIdentityIcon} text="Profile" onClick={this.props.nextViewer}/>
 
 
         <SidebarOption Icon={MoreHorizIcon} text="More" />

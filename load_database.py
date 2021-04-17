@@ -43,13 +43,15 @@ def tweet_txt_to_np(
     return arr
 
 
-def format_tweets(input_arr, remove_rt=True, remove_links=True):
+def format_tweets(input_arr, remove_rt=True, remove_links=True, take_longs=True, min_length = 10):
     """
     Formats array-like of tweets. Not inline
 
     :param input_arr: array-like of tweets
     :param remove_rt: whether to remove the "RT {username}:" labels; doesn't always work
     :param remove_links: whether to remove links; doesn't always work
+    :param take_longs: whether to take long tweets (after shortening). False discards the Tweet
+    :param min_length: minimum length for tweet to be saved
     :return: python list of processed tweets
     """
 
@@ -78,9 +80,14 @@ def format_tweets(input_arr, remove_rt=True, remove_links=True):
         # remove stray tokens; doesn't seem to work
         tweet.replace("<|startoftext|>", "")
 
-        # only save if formatted tweet is short enough
-        if len(tweet) < 141:
-            output.append(tweet)
+        
+        length = len(tweet)
+        if length >= min_length: # not too short
+          if length < 141: # only save if formatted tweet is short enough
+              output.append(tweet)
+          # if take_longs is True, save the first 140 characters
+          elif take_longs:
+            output.append(tweet[:140])
 
     return output
 

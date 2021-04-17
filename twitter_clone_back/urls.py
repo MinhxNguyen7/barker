@@ -19,7 +19,7 @@ from django.conf.urls import url
 
 from twitter_clone_backend import views
 
-
+# TODO: Make trailing slash optional with re_path() instead of path()
 urlpatterns = [
     # Admin site
     path('api/admin/', admin.site.urls),

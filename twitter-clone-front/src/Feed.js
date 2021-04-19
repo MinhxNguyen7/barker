@@ -17,12 +17,11 @@ class Feed extends React.Component {
     this.state = {loading: false, queue: false, posts: [], idList: [], viewedList: []};
   }
 
-  /*
   // Only update DOM when things aren't loading
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     return !this.state.loading;
   }
-  */
+  
 
   componentDidMount(){
     this.addPost()
@@ -46,12 +45,8 @@ class Feed extends React.Component {
           console.log(data)
 
           this.setState({idList: data})
-
-          for (let i = 0; i < 6; i++) {
-            this.addPost();
-          }
-
           this.setState({loading: false})
+          this.addPost(6);
         })
         .catch(err=>{console.log(err)})
     }
@@ -60,20 +55,26 @@ class Feed extends React.Component {
   
   addPost = (n=1) => {
     for(let i=0;i<n && this.state.idList.length > 0;i++){
-      console.log("Adding post")
+      // console.log("Adding post")
       this.setState({loading: true});
-
       // Gets a random ID and removes it from idList
       const id = this.state.idList.splice(Math.floor(Math.random() * this.state.idList.length), 1)
-
-      const postURL = settings.GET_POST_FROM_ID + id + "/"
+      const postURL = settings.GET_WHOLE_TWEET_URL + id + "/"
       console.log("Getting post from: " + postURL)
-      
+
       axios
-        .get(postURL)// gets the tweet, including the poster's username
-        .then(response => {
-          let post = response.data[0];
-          const poster_url = settings.GET_POSTER_INFO_URL + post['poster'] + '/'
+        .get(postURL)
+        .then(reponse => {
+          let post = reponse.data;
+          console.log(post)
+
+          // For random name generation
+          if(post['username'].startsWith("random:")){
+            const fake_user = getRandomUser()
+
+            post['username'] = fake_user['username'];
+            post['displayName'] = fake_user['displayName'];
+          }
 
           // If the post's image URL contains API redirect, set image url to the API's answer
           if(post['image'].startsWith('api:')){
@@ -92,34 +93,12 @@ class Feed extends React.Component {
             this.state.idList.push(id)
           }
 
-          axios
-            .get(poster_url) // gets the poster's info from their username that was acquired above
-            .then(poster_response => {
-              const userInfo = poster_response.data[0];
-              post['username'] = userInfo['username'];
-              post['displayName'] = userInfo['displayName'];
-              post['avatar'] = userInfo['avatar']
-              post['verified'] = userInfo['verified'];
-
-              // For random name generation
-              if(post['username'].startsWith("random:")){
-                const fake_user = getRandomUser()
-
-                post['username'] = fake_user['username'];
-                post['displayName'] = fake_user['displayName'];
-              }
-
-              // Adds the post info into the state
-              this.setState({posts: this.state.posts.concat(post), loading: false});
-              this.forceUpdate()
-            })
-            .catch(err2 => {
-              console.log("axios error with getting user info: " + err2);
-              this.setState({loading: false});
-              })
+          // Adds the post into the state
+          this.setState({posts: this.state.posts.concat(post), loading: false});
         })
-        .catch(err => {console.log("axios error: " + err); this.setState({loading: false});})
+        .catch((err) => "Error retrieving post: " + err)
     }
+    
   }
 
   handleScroll = (element) => {
@@ -167,6 +146,7 @@ class Feed extends React.Component {
               displayName={post.displayName}
               verified={post.verified}
               text={post.text}
+              explanation={post.explanation}
               avatar={post.avatar}
               image={post.image}
             />

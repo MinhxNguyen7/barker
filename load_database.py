@@ -78,7 +78,7 @@ def format_tweets(input_arr, remove_rt=True, remove_links=True, take_longs=True,
         tweet = " ".join(words)
 
         # remove stray tokens; doesn't seem to work
-        tweet.replace("<|startoftext|>", "")
+        tweet = tweet.replace("<|startoftext|>", "")
 
         
         length = len(tweet)

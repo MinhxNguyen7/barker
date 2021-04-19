@@ -18,6 +18,10 @@
   max-height: content-box;
 }
 
+.text{
+  white-space: pre-wrap;
+}
+
 .post__body > img {
   border-radius: 20px;
   max-width: 100%;

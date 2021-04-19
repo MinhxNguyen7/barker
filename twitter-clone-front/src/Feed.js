@@ -29,7 +29,7 @@ class Feed extends React.Component {
   }
 
   componentDidUpdate(prevProps){
-    if(this.state.queue == true){
+    if(this.state.queue === true){
       this.addPost()
       this.state.queue = false
     }
@@ -133,7 +133,7 @@ class Feed extends React.Component {
         // only add post if a post isn't already loading
         
         if(this.state.loading === true) {
-          if(this.state.queue == false){ // Loading and not queuing
+          if(this.state.queue === false){ // Loading and not queuing
             this.state.queue = true
           }
         }

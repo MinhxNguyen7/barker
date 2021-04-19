@@ -11,8 +11,6 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PublishIcon from "@material-ui/icons/Publish";
 
 
-
-// TODO: Add explanation support
 class Post extends React.Component{ //= forwardRef(({ displayName, username, verified, text, image, avatar, explanation }, ref) => {
   constructor(props){
     super(props);

@@ -101,7 +101,7 @@ def save_tweets_list(tweets, poster_name: str, explanation_name: str = None):
     :param explanation_name: name/pk of explanation
     """
 
-    for text in tweets:
+    for idx, text in tweets:
         tweet = Tweet()  # new Tweet instance
         poster = Poster.objects.get(username=poster_name)
 
@@ -113,7 +113,7 @@ def save_tweets_list(tweets, poster_name: str, explanation_name: str = None):
         tweet.text = text
 
         tweet.save()
-        print(f'saved to {poster.username}: \n{tweet.text}\n==========')
+        print(f'saved to {poster.username}: \n{tweet.text}\n====={idx}/{len(tweets)}=====')
 
 
 def append_before_ext(filename: str, addition: str):
@@ -129,8 +129,31 @@ def append_before_ext(filename: str, addition: str):
     return "{name}{add}{ext}".format(name=name, add=addition, ext=ext)
 
 
-def load_tweets_to_db(tweets_txt: str, poster_name: str, explanation_name: str):
+def load_tweets_to_db(
+    tweets_txt: str, poster_name: str, explanation_name: str, 
+    separator="\n====================", 
+    remove_rt=True, remove_links=True, take_longs=True, min_length = 10
+    ):
     assert tweets_txt.endswith(".txt")
 
-    tweets = format_tweets(tweet_txt_to_np(tweets_txt))
+    format_kwargs = dict(
+        remove_rt=remove_rt, remove_links=remove_links, take_longs=take_longs, min_length = min_length
+    )
+
+    tweets = format_tweets(tweet_txt_to_np(tweets_txt, separator=separator), **format_kwargs)
     save_tweets_list(tweets, poster_name, explanation_name)
+
+def parse_test(
+    tweets_txt: str, separator="\n====================", 
+    remove_rt=True, remove_links=True, take_longs=True, min_length = 10):
+    """
+    Dry-run, of sorts, to check if formatting and delimitation works
+    """
+    assert tweets_txt.endswith(".txt")
+
+    format_kwargs = dict(
+        remove_rt=remove_rt, remove_links=remove_links, take_longs=take_longs, min_length = min_length
+    )
+
+    for tweet in format_tweets(tweet_txt_to_np(tweets_txt, separator=separator), **format_kwargs):
+        print(tweet)

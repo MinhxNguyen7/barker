@@ -35,6 +35,7 @@ class App extends React.Component {
     else{
       this.setState({viewerNum: 0})
     }
+    window.scrollTo(0,0)
   }
 
   render(){

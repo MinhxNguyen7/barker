@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from django.views import generic
@@ -95,6 +95,29 @@ class PostFromIDView(generics.ListAPIView):
     def get_queryset(self):
         pk = self.kwargs['id']
         return Tweet.objects.filter(pk=pk)
+
+class WholePostFromID(generics.GenericAPIView):
+        def get(self, request, *args, **kwargs):
+            post_id = self.kwargs['id']
+            
+            post = Tweet.objects.get(pk=post_id)
+            poster = Poster.objects.get(pk=post.poster.username)
+            explanation = Explanation.objects.get(pk=post.explanation.name)
+
+            response = dict(
+                # Poster info
+                username = poster.username,
+                displayName = poster.displayName,
+                avatar = poster.avatar,
+                verified = poster.verified,
+                # Post content
+                text = post.text,
+                image = post.image,
+                # Explanation
+                explanation = explanation.text
+            )
+
+            return JsonResponse(response)
 
 
 class Frontend(generic.View):

@@ -23,6 +23,8 @@ from twitter_clone_backend import views
 urlpatterns = [
     # Admin site
     path('api/admin/', admin.site.urls),
+    # Gets all the info in a post
+    path('api/wholePost/<int:id>/', views.WholePostFromID.as_view(), name='whole-post-from-id-view'),
     # Gets a list of all Tweets
     path('api/tweets/', views.TweetsView.as_view({"get": "list"})),
     # Gets a list of all Viewers

@@ -138,8 +138,7 @@ class Feed extends React.Component {
           }
         }
         else { // If not loading
-          for(let i=0;i<3 && this.state.idList.length > 0;i++)
-            this.addPost()
+          this.addPost(2)
         } 
       }
     }
@@ -173,7 +172,7 @@ class Feed extends React.Component {
             />
           ))}
         </FlipMove>
-        <button onClick={this.handleClick} color="--twitter-color"> ooh button! </button>
+        <button onClick={this.handleClick} color="--twitter-color"> click </button>
         </div>
     );
   }

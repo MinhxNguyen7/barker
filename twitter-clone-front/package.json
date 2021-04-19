@@ -13,6 +13,7 @@
     "firebase": "^7.24.0",
     "mocker-data-generator": "^2.12.0",
     "react": "^16.14.0",
+    "react-card-flip": "^1.1.1",
     "react-dom": "^16.14.0",
     "react-flip-move": "^3.0.4",
     "react-infinite-scrolling": "^0.1.0",

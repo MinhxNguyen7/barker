@@ -27,6 +27,7 @@ class App extends React.Component {
   }
 
   nextViewer(){
+    window.scrollTo(0,0)
     // Increments viewerNum
     // Wraps back to 0 when index exceeds length of viewersList
     if(this.state.viewerNum <= this.state.viewersList.length-2){
@@ -35,7 +36,6 @@ class App extends React.Component {
     else{
       this.setState({viewerNum: 0})
     }
-    window.scrollTo(0,0)
   }
 
   render(){

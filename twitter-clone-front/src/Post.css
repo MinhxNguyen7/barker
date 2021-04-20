@@ -50,6 +50,7 @@
 .post__headerText > h3 {
   font-size: 15px;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
 .post__badge {

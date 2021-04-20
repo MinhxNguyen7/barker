@@ -77,7 +77,7 @@ class Post extends React.Component{ //= forwardRef(({ displayName, username, ver
 
             <div className="post__header">
               <div className="post__headerText">
-                <h3>
+                <h3 onClick={this.handleClick}>
                   {this.props.displayName}{" "}
                   <span className="post__headerSpecial">
                   {this.props.verified && <VerifiedUserIcon className="post__badge"/>} @
@@ -85,7 +85,7 @@ class Post extends React.Component{ //= forwardRef(({ displayName, username, ver
                 </span>
                 </h3>
               </div>
-              <div className="post__headerDescription" onClick={this.handleClick}>
+              <div className="post__headerDescription">
               {flipper}
               </div>
             </div>

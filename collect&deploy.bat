@@ -14,6 +14,6 @@ cd ..
 python manage.py collectstatic
 
 :: Deploy!
-gcloud app deploy
+D:\Programming\twitter_clone>D:\Apps\GCP_SDK\google-cloud-sdk\bin\gcloud app deploy
 
 cmd /k

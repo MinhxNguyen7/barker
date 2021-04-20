@@ -3,6 +3,7 @@ from twitter_clone_backend.models import Tweet, Poster, Explanation
 import numpy as np
 import pandas as pd
 import os
+from time import time
 from charset_normalizer import CharsetNormalizerMatches as CnM
 
 """
@@ -101,7 +102,7 @@ def save_tweets_list(tweets, poster_name: str, explanation_name: str = None):
     :param explanation_name: name/pk of explanation
     """
 
-    for idx, text in tweets:
+    for idx, text in enumerate(tweets):
         tweet = Tweet()  # new Tweet instance
         poster = Poster.objects.get(username=poster_name)
 
@@ -113,7 +114,7 @@ def save_tweets_list(tweets, poster_name: str, explanation_name: str = None):
         tweet.text = text
 
         tweet.save()
-        print(f'saved to {poster.username}: \n{tweet.text}\n====={idx}/{len(tweets)}=====')
+        print(f'saved to {poster.username}: \n{tweet.text}\n====={idx:05}/{len(tweets):05}=====')
 
 
 def append_before_ext(filename: str, addition: str):
@@ -134,14 +135,24 @@ def load_tweets_to_db(
     separator="\n====================", 
     remove_rt=True, remove_links=True, take_longs=True, min_length = 10
     ):
-    assert tweets_txt.endswith(".txt")
+    """
+    Full wrapper for loading tweets from .txt to DB
 
+    Example: load_database.load_tweets_to_db(
+        "data.txt", "random: left", "GPT2-LeftTroll", "\n")
+    """
+    start = time()
+
+    assert tweets_txt.endswith(".txt")
     format_kwargs = dict(
         remove_rt=remove_rt, remove_links=remove_links, take_longs=take_longs, min_length = min_length
     )
 
     tweets = format_tweets(tweet_txt_to_np(tweets_txt, separator=separator), **format_kwargs)
     save_tweets_list(tweets, poster_name, explanation_name)
+
+    end = time()
+    print(f"Loaded {len(tweets)} Tweets in {end-start} seconds")
 
 def parse_test(
     tweets_txt: str, separator="\n====================", 

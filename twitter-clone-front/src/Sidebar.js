@@ -12,25 +12,26 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { Button } from "@material-ui/core";
 
+import {scramble} from "./utils"
+
 class Sidebar extends React.Component {
   render(){
     return (
       <div className="sidebar">
         <TwitterIcon className="sidebar__twitterIcon" />
 
-        <SidebarOption Icon={HomeIcon} text="Home" />
-        <SidebarOption Icon={SearchIcon} text="Explore" />
-        <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
-        <SidebarOption Icon={MailOutlineIcon} text="Messages" />
-        <SidebarOption Icon={BookmarkBorderIcon} text="Bookmarks" />
-        <SidebarOption Icon={ListAltIcon} text="Lists" />
+        <SidebarOption Icon={HomeIcon} text={scramble("Home")} />
+        <SidebarOption Icon={SearchIcon} text={scramble("Explore")} />
+        <SidebarOption Icon={NotificationsNoneIcon} text={scramble("Notifications")} />
+        <SidebarOption Icon={MailOutlineIcon} text={scramble("Messages")} />
+        <SidebarOption Icon={BookmarkBorderIcon} text={scramble("Bookmarks")} />
+        <SidebarOption Icon={ListAltIcon} text={scramble("Lists")} />
         <SidebarOption active Icon={PermIdentityIcon} text="Profile" onClick={this.props.nextViewer}/>
 
-
-        <SidebarOption Icon={MoreHorizIcon} text="More" />
+        <SidebarOption Icon={MoreHorizIcon} text={scramble("More")} />
 
         <Button variant="outlined" className="sidebar__tweet">
-          Tweet
+          Bark
         </Button>
       </div>
     );

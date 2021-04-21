@@ -58,37 +58,40 @@ def format_tweets(input_arr, remove_rt=True, remove_links=True, take_longs=True,
 
     output = []
 
-    for _tweet in input_arr:
+    for idx, _tweet in enumerate(input_arr):
         tweet = _tweet
         words = tweet.split(" ")  # split tweet into words
 
-        # if it's a retweet, remove the RT label
-        if remove_rt:
-            while words[0].startswith("RT"):
-                words = words[2:]
+        try:
+            # if it's a retweet, remove the RT label
+            if remove_rt:
+                while words[0].startswith("RT"):
+                    words = words[2:]
 
-        # remove links
-        if remove_links:
-            new_words = []
-            for word in words:
-                if "http" not in word:
-                    new_words.append(word)
-            words = new_words
+            # remove links
+            if remove_links:
+                new_words = []
+                for word in words:
+                    if "http" not in word:
+                        new_words.append(word)
+                words = new_words
 
-        # join everything back together
-        tweet = " ".join(words)
+            # join everything back together
+            tweet = " ".join(words)
 
-        # remove stray tokens; doesn't seem to work
-        tweet = tweet.replace("<|startoftext|>", "")
+            # remove stray tokens; doesn't seem to work
+            tweet = tweet.replace("<|startoftext|>", "")
 
-        
-        length = len(tweet)
-        if length >= min_length: # not too short
-          if length < 141: # only save if formatted tweet is short enough
-              output.append(tweet)
-          # if take_longs is True, save the first 140 characters
-          elif take_longs:
-            output.append(tweet[:140])
+            
+            length = len(tweet)
+            if length >= min_length: # not too short
+                if length < 141: # only save if formatted tweet is short enough
+                    output.append(tweet)
+                # if take_longs is True, save the first 140 characters
+                elif take_longs:
+                    output.append(tweet[:140])
+        except Exception as e:
+            print(f"Exception occurred formatting tweet[{idx}]: {e}")
 
     return output
 

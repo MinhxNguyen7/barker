@@ -36,6 +36,7 @@ class App extends React.Component {
     else{
       this.setState({viewerNum: 0})
     }
+    console.log("Changed viewer to " + this.state.viewersList[this.state.viewerNum])
   }
 
   render(){

@@ -60,13 +60,13 @@ class Feed extends React.Component {
       // Gets a random ID and removes it from idList
       const id = this.state.idList.splice(Math.floor(Math.random() * this.state.idList.length), 1)
       const postURL = settings.GET_WHOLE_TWEET_URL + id + "/"
-      console.log("Getting post from: " + postURL)
+      // console.log("Getting post from: " + postURL)
 
       axios
         .get(postURL)
         .then(reponse => {
           let post = reponse.data;
-          console.log(post)
+          // console.log(post)
 
           // For random name generation
           if(post['username'].startsWith("random:")){

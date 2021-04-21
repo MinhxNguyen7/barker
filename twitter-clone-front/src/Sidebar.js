@@ -13,8 +13,14 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { Button } from "@material-ui/core";
 
 import {scramble} from "./utils"
+import dog from "./media/dog.mp3"
 
 class Sidebar extends React.Component {
+  playAudio() {
+    const audioEl = document.getElementsByClassName("bark-sound")[0]
+    audioEl.play()
+  }
+
   render(){
     return (
       <div className="sidebar">
@@ -30,9 +36,12 @@ class Sidebar extends React.Component {
 
         <SidebarOption Icon={MoreHorizIcon} text={scramble("More")} />
 
-        <Button variant="outlined" className="sidebar__tweet">
+        <Button variant="outlined" className="sidebar__tweet" onClick={this.playAudio}>
           Bark
         </Button>
+        <audio className="bark-sound">
+          <source src={dog}></source>
+        </audio>
       </div>
     );
   }

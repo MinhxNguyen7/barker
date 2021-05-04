@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47c08d24-c39b-495e-b514-7a57cc6aa39d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/load_database.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/twitter-clone-front/node_modules/acorn-globals/LICENSE" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/twitter-clone-front/node_modules/acorn-globals/README.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/twitter-clone-front/node_modules/acorn-globals/index.js" afterDir="false" />
@@ -3201,27 +3200,28 @@
       <change afterPath="$PROJECT_DIR$/twitter-clone-front/node_modules/yargs-parser/index.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/twitter-clone-front/node_modules/yargs-parser/lib/tokenize-arg-string.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/twitter-clone-front/node_modules/yargs-parser/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/twitter_clone_back.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/twitter_clone_back.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/twitter-clone-front/.env" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/.firebase/hosting.YnVpbGQ.cache" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/.firebaserc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/firebase.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/twitter-clone-front/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/public/favicon.ico" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/twitter-clone-front/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/src/Feed.css" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/src/Feed.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/src/Feed.js" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/src/Feed.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/src/Post.css" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/src/Post.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/src/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/src/Post.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/src/Sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/src/Sidebar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/twitter-clone-front/src/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/src/Sidebar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/src/SidebarOption.css" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/src/SidebarOption.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter-clone-front/src/SidebarOption.js" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/src/SidebarOption.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/twitter_clone_backend/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/twitter_clone_backend/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/twitter-clone-front/src/Widgets.js" beforeDir="false" afterPath="$PROJECT_DIR$/twitter-clone-front/src/Widgets.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -3236,7 +3236,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/twitter-clone-front" />
   </component>
   <component name="ProjectId" id="1pjODIg2d1iaJLWCy4pspr9ecrc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -3252,16 +3252,20 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/data/gpt2_gentext_RightTroll.txt" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/static" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/twitter-clone-front/public" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="ts.external.directory.path" value="D:\Apps\PyCharm 2020.3.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Programming\twitter_clone\twitter-clone-front\public" />
       <recent name="D:\Programming\twitter_clone\static" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -3284,7 +3288,8 @@
       <workItem from="1615997674814" duration="19613000" />
       <workItem from="1616590237034" duration="1473000" />
       <workItem from="1616591882881" duration="738000" />
-      <workItem from="1616693538596" duration="6289000" />
+      <workItem from="1616693538596" duration="24120000" />
+      <workItem from="1618837364850" duration="100000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,3 @@
-ECHO OFF
-
 :: Activate environment
 call d:/Apps/Anaconda/Scripts/activate mysite
 
@@ -14,6 +12,6 @@ cd ..
 python manage.py collectstatic
 
 :: Deploy!
-D:\Programming\twitter_clone>D:\Apps\GCP_SDK\google-cloud-sdk\bin\gcloud app deploy
+D:\Apps\GCP_SDK\google-cloud-sdk\bin\gcloud app deploy
 
 cmd /k

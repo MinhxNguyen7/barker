@@ -112,7 +112,7 @@ class WholePostFromID(generics.GenericAPIView):
                 verified = poster.verified,
                 # Post content
                 text = post.text,
-                image = image if post.article is None else "news:"+ str(post.article.id), 
+                image = post.image if post.article is None else "news:"+ str(post.article.id), 
                 # Explanation
                 explanation = explanation.text
             )

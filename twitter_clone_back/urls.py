@@ -31,15 +31,8 @@ urlpatterns = [
     path('api/viewers/', views.ViewersView.as_view({"get": "list"})),
     # Gets list that this viewer follows. Yes, the name is confusing
     path('api/getFollowing/<str:viewer_name>/', views.FollowingListView.as_view(), name='following-list-view'),
-    # Gets user info from username
-    path('api/getUserInfo/<str:username>/', views.UserInfo.as_view(), name='get-user-info-from-username'),
-    # Gets a random Tweet. Mostly for testing.
-    path('api/getRandomTweet/', views.RandomTweetView.as_view(), name='random-tweet'),
-    # Gets explanation from pk/name of explanation
-    path('api/getExplanation/<str:expl_name>/', views.ExplanationView.as_view(), name='get-explanation-from-name'),
     # Gets list of post IDs for a viewer
     path('api/ViewerToId/<str:viewer_name>/', views.ViewerToIdList.as_view({"get": "list"}), name='viewer-to-id-view'),
-    path('api/getPostFromID/<int:id>/', views.PostFromIDView.as_view(), name='post-from-id-view'),
     # For frontend
     url(r'^', views.Frontend.as_view(), name='frontend')
 ]

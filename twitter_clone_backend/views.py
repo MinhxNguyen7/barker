@@ -56,46 +56,6 @@ class FollowingListView(generics.ListAPIView):
         return Poster.objects.filter(viewer__name=viewer_name)
 
 
-class RandomTweetView(generics.ListAPIView):
-    """
-    Gets a random Tweet by looking at primary keys
-    of all Tweets and picking one.
-    """
-    serializer_class = TweetSerializer
-
-    def get_queryset(self):
-        pks = Tweet.objects.values_list('pk', flat=True)
-        random_pk = random.sample(list(pks), 1)[0]
-        return Tweet.objects.filter(pk=random_pk)
-
-
-class UserInfo(generics.ListAPIView):
-    serializer_class = PosterSerializer
-
-    def get_queryset(self):
-        username = self.kwargs['username']
-        poster = Poster.objects.filter(pk=username)
-
-        if len(poster) == 1:
-            return poster
-        else:
-            raise LookupError('No user with username "'+str(username)+'" found')
-
-
-class ExplanationView(generics.ListAPIView):
-    serializer_class = ExplanationSerializer
-
-    def get_queryset(self):
-        expl_name = self.kwargs['expl_name']
-        return Explanation.objects.filter(pk=expl_name)
-
-class PostFromIDView(generics.ListAPIView):
-    serializer_class = TweetSerializer
-
-    def get_queryset(self):
-        pk = self.kwargs['id']
-        return Tweet.objects.filter(pk=pk)
-
 class WholePostFromID(generics.GenericAPIView):
         def get(self, request, *args, **kwargs):
             post_id = self.kwargs['id']

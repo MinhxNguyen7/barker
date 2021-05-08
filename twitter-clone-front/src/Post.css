@@ -36,10 +36,26 @@
   border-radius: 20px;
 }
 
+.news__a {
+  text-decoration: none;
+}
+
+.news__card {
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  float: left;
+  position: relative;
+  width: 75%;
+}
+
 .post__footer {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  position: relative;
+  min-width: 30%;
+  max-width: 78%;
+  padding-top: 2vh;
 }
 
 .post__headerDescription {

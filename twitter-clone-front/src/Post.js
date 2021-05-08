@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player/lazy'
 import ReactCardFlip from 'react-card-flip';
 
 import "./Post.css";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Card } from "@material-ui/core";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import RepeatIcon from "@material-ui/icons/Repeat";
@@ -27,12 +27,15 @@ class Post extends React.Component{
     // Check if react-player can play media
     // Falls back to image display if it cannot
     let media
-    const media_url = this.props.image
-    if(media_url.startsWith("news:")){ // TODO: Test if this shit works
-      const news_url = [window.location.origin, "news", media_url.subStr(5)].join("/")
+    const media_url = String(this.props.image)
+    
+    if(media_url.startsWith("news:")){
+      const news_url = [window.location.origin, "news", media_url.substring(5)].join("/")
       media = (
-        <a className="NewsCard" href={news_url} target="_blank">
-          <div>Thing</div>
+        <a className="news__a" href={news_url} target="_blank">
+          <Card className="news__card">
+            This is a blurb of the news article
+          </Card>
         </a>
       )
     }

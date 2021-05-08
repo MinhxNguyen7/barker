@@ -18,13 +18,15 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    axios
-      .get(settings.GET_VIEWERS_URL)
-      .then(response =>{
-        this.setState({viewersList: response.data})
-        console.log("Recieved users: " + this.state.viewersList)
-      })
-      .catch(err => console.log("Error retrieving viewers list: " + err))
+    if(window.location.pathname === "/"){ // Only add new posts on main screen
+      axios
+        .get(settings.GET_VIEWERS_URL)
+        .then(response =>{
+          this.setState({viewersList: response.data})
+          console.log("Recieved users: " + this.state.viewersList)
+        })
+        .catch(err => console.log("Error retrieving viewers list: " + err))
+    }
   }
 
   nextViewer(){
@@ -42,7 +44,6 @@ class App extends React.Component {
 
   render(){
     const pathname = window.location.pathname
-    console.log("Pathname: " + pathname)
 
     let body = null
     if(pathname === "/"){

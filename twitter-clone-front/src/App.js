@@ -4,6 +4,7 @@ import settings from "./settings"
 import Sidebar from "./Sidebar";
 import Feed from "./Feed";
 import Widgets from "./Widgets";
+import Article from "./Article"
 
 import "./App.css";
 import axios from "axios";
@@ -40,14 +41,38 @@ class App extends React.Component {
   }
 
   render(){
+    const pathname = window.location.pathname
+    console.log("Pathname: " + pathname)
+
+    let body = null
+    if(pathname === "/"){
+      body = (
+                  <div className="app">
+                    <Sidebar nextViewer={this.nextViewer}/>
+                    <Feed viewer={this.state.viewersList[this.state.viewerNum]}/>
+                    <Widgets />
+                  </div>
+                )
+    }
+    else if(pathname.startsWith("/news/")){
+      let id = pathname.substr(6)
+      // Remove trailing slash in article ID
+      if(id.endsWith("/")){
+        id = id.substr(0,id.length-1)
+      }
+
+      body = <Article id={id}/>
+    }
+    else{
+      body=<div>
+        Error 404: Not Found
+      </div>
+    }
+
     return (
       // BEM
       <html lang="en">
-        <div className="app">
-          <Sidebar nextViewer={this.nextViewer}/>
-          <Feed viewer={this.state.viewersList[this.state.viewerNum]}/>
-          <Widgets />
-        </div>
+        {body}
       </html>
     );
   }

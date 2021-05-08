@@ -27,18 +27,29 @@ class Post extends React.Component{ //= forwardRef(({ displayName, username, ver
     // Check if react-player can play media
     // Falls back to image display if it cannot
     let media
-    if(ReactPlayer.canPlay(this.props.image)){
+    const media_url = this.props.image
+    if(media_url.startsWith("news:")){ // TODO: Test is this shit works
+      const news_url = [window.location.origin, "news", media_url.subStr(5)].join("/")
       media = (
-      <div className="player-wrapper">
-        <ReactPlayer url={this.props.image} // TODO: Autoplay when in view
-          muted={true} loop={true} playing={false} height={"45vh"} width={null}>
-          <div/>
-        </ReactPlayer>
-      </div>)
-      console.log("play!")
+        <a className="NewsCard" href={news_url} target="_blank">
+          <div>Thing</div>
+        </a>
+      )
     }
-    else if (this.props.image !== "" && this.props.image != null){
-      media = <img src={this.props.image} alt="" />
+    else{
+      if(ReactPlayer.canPlay(media_url)){
+        media = (
+        <div className="player-wrapper">
+          <ReactPlayer url={media_url} // TODO: Autoplay when in view
+            muted={true} loop={true} playing={false} height={"45vh"} width={null}>
+            <div/>
+          </ReactPlayer>
+        </div>)
+        console.log("play!")
+      }
+      else if (media_url !== "" && media_url != null){
+        media = <img src={media_url} alt="" />
+      }
     }
 
     let explanation
@@ -48,12 +59,12 @@ class Post extends React.Component{ //= forwardRef(({ displayName, username, ver
     else{
       explanation = this.props.explanation.replace(
       /(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi,
-      function(){return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'}
+      function(){return '<a href="' + arguments[2] + '" target="_blank">' + (arguments[7] || arguments[2]) + '</a>' }
     )}
     
     const text = this.props.text.replace(
       /(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi,
-      function(){return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'}
+      function(){return '<a href="' + arguments[2] + '"target="_blank">' + (arguments[7] || arguments[2]) + '</a>'}
     )
 
     const flipper = (

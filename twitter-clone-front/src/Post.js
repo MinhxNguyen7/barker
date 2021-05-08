@@ -50,10 +50,12 @@ class Post extends React.Component{
         </div>)
         console.log("play!")
       }
-      else if (media_url !== "" || media_url != null){
+      else if (media_url === "" || media_url == null){
         media = ""
       }
-
+      else{
+        media = <img src={media_url}/>
+      }
     }
 
     let explanation
@@ -101,7 +103,7 @@ class Post extends React.Component{
                 </h3>
               </div>
               <div className="post__headerDescription">
-              {flipper}
+                {flipper}
               </div>
             </div>
             {media}

@@ -11,7 +11,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PublishIcon from "@material-ui/icons/Publish";
 
 
-class Post extends React.Component{ //= forwardRef(({ displayName, username, verified, text, image, avatar, explanation }, ref) => {
+class Post extends React.Component{ 
   constructor(props){
     super(props);
     this.state = {isFlipped: false}
@@ -28,7 +28,7 @@ class Post extends React.Component{ //= forwardRef(({ displayName, username, ver
     // Falls back to image display if it cannot
     let media
     const media_url = this.props.image
-    if(media_url.startsWith("news:")){ // TODO: Test is this shit works
+    if(media_url.startsWith("news:")){ // TODO: Test if this shit works
       const news_url = [window.location.origin, "news", media_url.subStr(5)].join("/")
       media = (
         <a className="NewsCard" href={news_url} target="_blank">
@@ -49,6 +49,9 @@ class Post extends React.Component{ //= forwardRef(({ displayName, username, ver
       }
       else if (media_url !== "" && media_url != null){
         media = <img src={media_url} alt="" />
+      }
+      else{
+        <div>Error: Link could not be loaded</div>
       }
     }
 

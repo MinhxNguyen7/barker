@@ -47,12 +47,10 @@ class Post extends React.Component{
         </div>)
         console.log("play!")
       }
-      else if (media_url !== "" && media_url != null){
-        media = <img src={media_url} alt="" />
+      else if (media_url !== "" || media_url != null){
+        media = ""
       }
-      else{
-        <div>Error: Link could not be loaded</div>
-      }
+
     }
 
     let explanation

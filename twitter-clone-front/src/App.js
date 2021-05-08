@@ -47,12 +47,12 @@ class App extends React.Component {
     let body = null
     if(pathname === "/"){
       body = (
-                  <div className="app">
-                    <Sidebar nextViewer={this.nextViewer}/>
-                    <Feed viewer={this.state.viewersList[this.state.viewerNum]}/>
-                    <Widgets />
-                  </div>
-                )
+              <div className="app">
+                <Sidebar nextViewer={this.nextViewer}/>
+                <Feed viewer={this.state.viewersList[this.state.viewerNum]}/>
+                <Widgets />
+              </div>
+              )
     }
     else if(pathname.startsWith("/news/")){
       let id = pathname.substr(6)

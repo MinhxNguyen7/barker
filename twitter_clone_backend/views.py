@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from django.views import generic
 
 from .serializers import TweetSerializer, PosterSerializer, ExplanationSerializer
-from .models import Tweet, Poster, Explanation, Viewer
+from .models import Tweet, Poster, Explanation, Viewer, Article
 
 import random
 import os.path
@@ -79,6 +79,17 @@ class WholePostFromID(generics.GenericAPIView):
 
             return JsonResponse(response)
 
+class ArticleView(generics.GenericAPIView):
+    def get(self, request, *args, **kwargs):
+        article_id = self.kwargs['article_id']
+        article = Article.objects.get(pk=article_id)
+
+        response = dict(
+            title = article.title,
+            text = article.text
+        )
+
+        return JsonResponse(response)
 
 class Frontend(generic.View):
     """

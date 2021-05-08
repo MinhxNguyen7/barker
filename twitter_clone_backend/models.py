@@ -22,10 +22,16 @@ class Explanation(models.Model):
         return f"Explanation named {self.name}"
 
 
+class Article(models.Model):
+    title = models.TextField(default='', blank=True, null=True, max_length=300)
+    text = models.TextField(default='')
+
+
 class Tweet(models.Model):
     poster = models.ForeignKey(Poster, on_delete=models.CASCADE, default='noUser')
     text = models.TextField(default='', max_length=141)
-    image = models.TextField(default='', blank=True) # url of attached image. Can be empty string
+    image = models.TextField(default='', blank=True, null=True) # url of attached image. Can be empty string
+    article = models.ForeignKey(Article, on_delete=models.SET_NULL, blank=True, null=True)
     explanation = models.ForeignKey( # Relation to explanation. Can be empty and/or null
         Explanation, on_delete=models.CASCADE, default='default', blank=True, null=True)
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tweet, Poster, Viewer, Explanation
+from .models import Tweet, Poster, Viewer, Explanation, Article
 
 
 class TweetAdmin(admin.ModelAdmin):
@@ -17,9 +17,13 @@ class ExplanationAdmin(admin.ModelAdmin):
 class ViewerAdmin(admin.ModelAdmin):
     pass
 
+class ArticleAdmin(admin.ModelAdmin):
+    pass
+
 
 # Register  models.
 admin.site.register(Tweet, TweetAdmin)
 admin.site.register(Poster, PosterAdmin)
 admin.site.register(Viewer, ViewerAdmin)
 admin.site.register(Explanation, ExplanationAdmin)
+admin.site.register(Article, ArticleAdmin)

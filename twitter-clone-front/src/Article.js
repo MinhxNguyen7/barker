@@ -40,7 +40,10 @@ class Article extends React.Component{
                 <body>
                     <header>
                         <div class="profileLogo"> 
-                            <p class="logoPlaceholder"><span>LOGO</span></p>
+                            <p class="logoPlaceholder">
+                                <img src={this.state.image_url} alt=""/>
+                                <span>LOGO</span>
+                                </p>
                         </div>
                     </header>
                     <section class="mainContent"> 

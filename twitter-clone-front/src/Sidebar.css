@@ -25,6 +25,7 @@
   font-size: 30px !important;
   margin-left: 20px;
   margin-bottom: 20px;
+  max-width: 2vw;
 }
 
 .sidebar__tweet {

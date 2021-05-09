@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React from "react";
 import ReactPlayer from 'react-player/lazy'
 import ReactCardFlip from 'react-card-flip';
 
@@ -8,7 +8,6 @@ import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import PublishIcon from "@material-ui/icons/Publish";
 
 
 class Post extends React.Component{ 
@@ -33,7 +32,7 @@ class Post extends React.Component{
       const news_url = [window.location.origin, "news", media_url.substring(5)].join("/")
       media = (
         <a className="news__a" href={news_url} target="_blank">
-          <Card className="news__card">
+          <Card body className="news__card">
             This is a blurb of the news article
           </Card>
         </a>

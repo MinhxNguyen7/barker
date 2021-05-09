@@ -14,7 +14,7 @@
 	text-align: center;
 	display: block;
 }
-.header .profileLogo .logoPlaceholder {
+.logoPlaceholder {
 	background-color: rgba(208,207,207,1.00);
 	width: 187px;
 	text-align: center;
@@ -183,7 +183,7 @@
 	width: 100%;
 	float: none;
 }
-.header .profileLogo .logoPlaceholder {
+.logoPlaceholder {
 	display: inline-block;
 }
 .header .profilePhoto {
@@ -260,7 +260,7 @@
 	width: 100%;
 	float: none;
 }
-.header .profileLogo .logoPlaceholder {
+.logoPlaceholder {
 	display: inline-block;
 	font-family: 'Montserrat', sans-serif;
 }
@@ -336,7 +336,7 @@
 /* Desktops and laptops  */
 @media only screen and (min-width:1025px) {
 /* Header */
-.header .profileLogo .logoPlaceholder {
+.logoPlaceholder {
 	float: left;
 	margin-bottom: 50px;
 }

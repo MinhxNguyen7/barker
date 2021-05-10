@@ -43,10 +43,23 @@ class Post extends React.Component{
       if(ReactPlayer.canPlay(media_url)){
         media = (
         <VisibilitySensor onChange={this.visibilityChange}>
-          {({isVisible}) => { 
+          {({isVisible}) => {
+            let w, h
+            if(window.innerWidth < 420){
+              h = "auto"
+              w = "70vw"
+            }
+            else if(window.innerWidth < 1024){
+              h = "20vw"
+              w = "35vw"
+            }
+            else{
+              h = "40vh"
+              w = "90%"
+            }
             return(
               <div className="player-wrapper">
-                <ReactPlayer height={"25vw"} width={"90%"}
+                <ReactPlayer height={h} width={w}
                 url={media_url} loop={true} muted={true} playing={isVisible && !this.state.isPaused} 
                 onClick={() => this.setState({isPaused: true})}
                 config={{

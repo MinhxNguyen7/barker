@@ -1,18 +1,23 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/analytics";
+import "firebase/firestore";
+
+// Initialize the default app
+export var admin = require('firebase-admin');
+export var app = admin.initializeApp();
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCw-li0IscS2rJr68dSjoJL3KM3eFq5PfE",
-  authDomain: "twitter-clone-1faac.firebaseapp.com",
-  databaseURL: "https://twitter-clone-1faac.firebaseio.com",
-  projectId: "twitter-clone-1faac",
-  storageBucket: "twitter-clone-1faac.appspot.com",
-  messagingSenderId: "316208638057",
-  appId: "1:316208638057:web:75a37bf24fab32ff145af8",
-  measurementId: "G-HGFP2LDXP9",
+  apiKey: "AIzaSyA-e6JmdJY9JxEtaZae-6UNvaQAm6qB77s",
+  authDomain: "twitter-clone-sstp.firebaseapp.com",
+  projectId: "twitter-clone-sstp",
+  storageBucket: "twitter-clone-sstp.appspot.com",
+  messagingSenderId: "487422395058",
+  appId: "1:487422395058:web:71cacd9b8406df459c3fab`",
+  measurementId: "G-LPC71XQKTB"
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const db = firebaseApp.firestore();
 
-export default db;
+export default {db, app, admin};

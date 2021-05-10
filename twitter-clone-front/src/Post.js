@@ -46,7 +46,7 @@ class Post extends React.Component{
           {({isVisible}) => { 
             return(
               <div className="player-wrapper">
-                <ReactPlayer height={"25vw"} width={"100%"}
+                <ReactPlayer height={"25vw"} width={"90%"}
                 url={media_url} loop={true} muted={true} playing={isVisible && !this.state.isPaused} 
                 onClick={() => this.setState({isPaused: true})}
                 config={{

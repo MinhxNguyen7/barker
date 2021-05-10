@@ -55,19 +55,16 @@ class App extends React.Component {
               </div>
               )
     }
-    else if(pathname.startsWith("/news/")){
+    if(pathname.startsWith("/news/")){
       let id = pathname.substr(6)
       // Remove trailing slash in article ID
       if(id.endsWith("/")){
         id = id.substr(0,id.length-1)
       }
-
       body = <Article id={id}/>
     }
-    else{
-      body=<div>
-        Error 404: Not Found
-      </div>
+    if(body==null){
+      body=<div>Error 404: Not Found</div>
     }
 
     return (

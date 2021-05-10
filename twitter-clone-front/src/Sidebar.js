@@ -24,7 +24,7 @@ class Sidebar extends React.Component {
   render(){
     return (
       <div className="sidebar">
-        <img className="sidebar__twitterIcon" src={PageIcon}/>
+        <img className="sidebar__twitterIcon" src={PageIcon} alt="Barker Icon"/>
 
         <SidebarOption Icon={HomeIcon} text={scramble("Home")} />
         <SidebarOption Icon={SearchIcon} text={scramble("Explore")} />

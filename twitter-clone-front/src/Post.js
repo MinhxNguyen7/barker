@@ -65,7 +65,7 @@ class Post extends React.Component{
         media = ""
       }
       else{
-        media = <img src={media_url}/>
+        media = <img src={media_url} alt=""/>
       }
     }
 

@@ -7,13 +7,21 @@ import Post from "./Post";
 import "./Feed.css";
 import FlipMove from "react-flip-move";
 
+import HomeIcon from "@material-ui/icons/Home";
+import SearchIcon from "@material-ui/icons/Search";
+import PermIdentityIcon from "@material-ui/icons/PermIdentity";
+
 import {getRandomUser} from "./utils"
+import SidebarOption from "./SidebarOption";
 
 
 class Feed extends React.Component {
   constructor(props) {
     super(props)
     this.state = {loading: false, queue: false, posts: [], idList: [], viewedList: []};
+    this.homeClick = this.homeClick.bind(this);
+    this.exploreClick = this.exploreClick.bind(this);
+    this.profileClick = this.profileClick.bind(this);
   }
 
   // Only update DOM when things aren't loading
@@ -21,7 +29,6 @@ class Feed extends React.Component {
     return !this.state.loading;
   }
   
-
   componentDidMount(){
     this.addPost()
   }
@@ -33,7 +40,12 @@ class Feed extends React.Component {
     }
     // Check if Viewer has been changed
     if(prevProps.viewer !== this.props.viewer){
-      this.setState({posts: [], loading: true})
+      this.updateIdList()
+    }
+  }
+
+  updateIdList(){
+    this.setState({posts: [], loading: true})
 
       const viewerURL = settings.GET_IDs_FROM_VIEWER_URL + this.props.viewer + "/"
       console.log("Getting IDs from: " + viewerURL)
@@ -42,16 +54,14 @@ class Feed extends React.Component {
         .then((reponse)=>{
           const data = reponse.data
           console.log(data)
-
+  
           this.setState({idList: data})
           this.setState({loading: false})
           this.addPost(6);
         })
         .catch(err=>{console.log(err)})
-    }
   }
 
-  
   addPost = (n=1) => {
     for(let i=0;i<n && this.state.idList.length > 0;i++){
       // console.log("Adding post")
@@ -126,15 +136,42 @@ class Feed extends React.Component {
     }
   }
 
-  handleClick = () =>{
-    this.forceUpdate()
+  homeClick(){
+    console.log("Clicked homeClick")
+    this.updateIdList()
+    // Idk why, but only scrolling once doesn't go all the way
+    window.scrollTo(0,0)
+    window.scrollTo(0,0)
   }
-  
+
+  exploreClick(){
+    console.log("Clicked exploreClick")
+  }
+
+  profileClick(){
+    console.log("Clicked profileClick")
+  }
+
   render() {
+    let head = null
+    if(window.innerWidth > 420){
+      head = <h2>Home</h2>
+    }
+    else{
+      head = 
+        <h2>
+          <div className="topIconDiv">
+            <HomeIcon classname="topIcon" onClick={this.homeClick}/>
+            <SearchIcon classname="topIcon" onClick={this.exploreClick}/>
+            <PermIdentityIcon classname="topIcon" onClick={this.profileClick}/>
+          </div>
+        </h2>
+    }
+
     return (
       <div className="feed" onScroll={this.handleScroll}>
         <div className="feed__header">
-          <h2>Home</h2>
+          {head}
         </div>
         <FlipMove>
           {this.state.posts.map((post, index) => (
@@ -150,7 +187,7 @@ class Feed extends React.Component {
             />
           ))}
         </FlipMove>
-        <button onClick={this.handleClick} color="--twitter-color"> click </button>
+        <button onClick={()=>this.forceUpdate} color="--twitter-color"> click </button>
         </div>
     );
   }

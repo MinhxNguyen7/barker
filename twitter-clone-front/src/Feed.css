@@ -42,7 +42,20 @@
   font-weight: 800;
 }
 
+.topIconDiv {
+  justify-content: space-between;
+  display: flex;
+  padding-right: 5vw;
+  padding-left: 5vw;
+}
+
+.topIcon {
+  min-width: 33vw !important;
+  cursor: pointer;
+}
+
 .button{
   color: var(--twitter-background);
   padding: 100px;
+  flex:content !important;
 }

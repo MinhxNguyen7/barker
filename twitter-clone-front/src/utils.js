@@ -17,10 +17,9 @@ export function scramble(word){
     return(newArr.join(""))
 }
 
-
 // Function for getting random user using mocker-data-generator
 // This is way too complicated
-export function getRandomUser(){
+export function randomUser(){
   const mocker_schema = {
     firstName: {faker: 'name.firstName'},
     lastName: {faker: 'name.lastName'},
@@ -38,4 +37,4 @@ export function getRandomUser(){
   return fake_user
 }
 
-export default {scramble, getRandomUser}
+export default {scramble, getRandomUser: randomUser}

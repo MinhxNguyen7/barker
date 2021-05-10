@@ -11,7 +11,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 
-import {getRandomUser} from "./utils"
+import {randomUser} from "./utils"
 import SidebarOption from "./SidebarOption";
 
 
@@ -79,7 +79,7 @@ class Feed extends React.Component {
 
           // For random name generation
           if(post['username'].startsWith("random:")){
-            const fake_user = getRandomUser()
+            const fake_user = randomUser()
 
             post['username'] = fake_user['username'];
             post['displayName'] = fake_user['displayName'];

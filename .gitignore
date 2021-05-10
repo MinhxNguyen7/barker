@@ -132,4 +132,4 @@ twitter-clone-front/node_modules
 /data/
 .vscode/settings.json
 .idea/workspace.xml
-twitter-clone-front/src/firebase.js
+twitter-clone-front/src/firebase-creds.json

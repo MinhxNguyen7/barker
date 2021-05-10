@@ -39,7 +39,7 @@ class Article extends React.Component{
                 <body class="mybody" >
                 
                     <header>
-                        <div class="profileLogo"> 
+                        <div class="profileLogo" style={{height: "5vh"}}> 
                             <p class="logoPlaceholder"><img src="logoImage.png" alt="sample logo"/></p>
                         </div>
                     </header>

@@ -30,31 +30,32 @@ class Article extends React.Component{
         console.log("Article with id: " + this.props.id)
         return(
             <html class="wf-montserrat-n4-active wf-sourcesanspro-n2-active wf-active">
-                <meta charset="utf-8"/>
-                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <head>
+                    <meta charset="utf-8"/>
+                    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                    <script src="http://use.edgefonts.net/montserrat:n4:default;source-sans-pro:n2:default.js" type="text/javascript"/>
+                </head>
 
-                <script>var __adobewebfontsappname__="dreamweaver"</script>
-                <link rel="stylesheet" href="https://use.edgefonts.net/c/e2c03d/1w;montserrat,2,2cm5Ph:W:n4;source-sans-pro,2,2cm9PC:W:n2/l" media="all"/>
-                <script src="http://use.edgefonts.net/montserrat:n4:default;source-sans-pro:n2:default.js" type="text/javascript"/>
-
-                <body>
+                <body class="mybody" >
+                
                     <header>
                         <div class="profileLogo"> 
-                            <p class="logoPlaceholder">
-                                <img src={this.state.image_url} alt=""/>
-                                <span>LOGO</span>
-                                </p>
+                            <p class="logoPlaceholder"><img src="logoImage.png" alt="sample logo"/></p>
                         </div>
                     </header>
+                    
                     <section class="mainContent"> 
                         <section class="section2">
                             <article class="section2Content">
-                            <h2 class="sectionContentTitle">{this.state.title}</h2>
-                            <h3 class="sectionContentSubTitle"></h3>
-                            <p class="sectionContent">{this.state.text}</p>
+                                <h2 class="sectionContentTitle">{this.state.title}</h2>
+                                <h3 class="sectionContentSubTitle">Mar 05, 2020</h3>
+                                <hr class="myhr"/>
+                                <p class="sectionContent">{this.state.text}</p>
                             </article>
+                            
                         </section>
                     </section>
+
                 </body>
             </html>
         )

@@ -1,3 +1,5 @@
+import mocker from 'mocker-data-generator'
+
 export function scramble(word){
     const letterArr = word.split("");
     let newArr = [];
@@ -15,4 +17,25 @@ export function scramble(word){
     return(newArr.join(""))
 }
 
-export default {scramble}
+
+// Function for getting random user using mocker-data-generator
+// This is way too complicated
+export function getRandomUser(){
+  const mocker_schema = {
+    firstName: {faker: 'name.firstName'},
+    lastName: {faker: 'name.lastName'},
+    username: {function: function() {
+      return (this.object.firstName+this.object.lastName)
+    }},
+    displayName: {function: function() {
+      return (this.object.firstName + " " + this.object.lastName)
+    }}
+  }
+
+  const fake_user = mocker().schema('user', mocker_schema, 1).buildSync()['user'][0]
+  //console.log(fake_user)
+
+  return fake_user
+}
+
+export default {scramble, getRandomUser}

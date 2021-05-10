@@ -7,7 +7,7 @@ import Post from "./Post";
 import "./Feed.css";
 import FlipMove from "react-flip-move";
 
-import mocker from 'mocker-data-generator'
+import {getRandomUser} from "./utils"
 
 
 class Feed extends React.Component {
@@ -156,24 +156,5 @@ class Feed extends React.Component {
   }
 }
 
-// Function for getting random user using mocker-data-generator
-// This is way too complicated
-function getRandomUser(){
-  const mocker_schema = {
-    firstName: {faker: 'name.firstName'},
-    lastName: {faker: 'name.lastName'},
-    username: {function: function() {
-      return (this.object.firstName+this.object.lastName)
-    }},
-    displayName: {function: function() {
-      return (this.object.firstName + " " + this.object.lastName)
-    }}
-  }
-
-  const fake_user = mocker().schema('user', mocker_schema, 1).buildSync()['user'][0]
-  //console.log(fake_user)
-
-  return fake_user
-}
 
 export default Feed;

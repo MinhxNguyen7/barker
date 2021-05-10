@@ -3,7 +3,6 @@ import axios from "axios"
 
 import settings from "./settings"
 
-import TweetBox from "./TweetBox";
 import Post from "./Post";
 import "./Feed.css";
 import FlipMove from "react-flip-move";
@@ -137,7 +136,6 @@ class Feed extends React.Component {
         <div className="feed__header">
           <h2>Home</h2>
         </div>
-        <TweetBox/>
         <FlipMove>
           {this.state.posts.map((post, index) => (
             <Post

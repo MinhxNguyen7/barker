@@ -1,6 +1,7 @@
 import React from "react";
-import ReactPlayer from 'react-player/lazy'
+import ReactPlayer from 'react-player/lazy';
 import ReactCardFlip from 'react-card-flip';
+import VisibilitySensor from 'react-visibility-sensor';
 
 import "./Post.css";
 import { Avatar, Card } from "@material-ui/core";
@@ -13,7 +14,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 class Post extends React.Component{ 
   constructor(props){
     super(props);
-    this.state = {isFlipped: false, isVisible: false}
+    this.state = {isFlipped: false, isPaused: false}
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -41,13 +42,22 @@ class Post extends React.Component{
     else{
       if(ReactPlayer.canPlay(media_url)){
         media = (
-        
-          <div className="player-wrapper">
-            <ReactPlayer url={media_url} // TODO: Autoplay when in view
-              muted={true} loop={true} playing={false} height={"45vh"} width={null}>
-              <div/>
-            </ReactPlayer>
-          </div>
+        <VisibilitySensor onChange={this.visibilityChange}>
+          {({isVisible}) => { 
+            return(
+              <div className="player-wrapper">
+                <ReactPlayer height={"25vw"} width={"100%"}
+                url={media_url} loop={true} muted={true} playing={isVisible && !this.state.isPaused} 
+                onClick={() => this.setState({isPaused: true})}
+                config={{
+                  youtube:{playerVars:{controls: 1, disablekb: 1, modestbranding:1, rel:0, color:"white"}
+                  }}}>
+                  <div/>
+                </ReactPlayer>
+              </div>
+            )
+          }}
+        </VisibilitySensor>
         )
         console.log("play!")
       }

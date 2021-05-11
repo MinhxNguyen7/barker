@@ -21,7 +21,7 @@ def tweet_txt_to_np(
     Converts txt output of GPT-2 into a numpy list of strings
     """
 
-    encoding = None
+    encoding = 'utf-8'
     if normalize_encoding:
         cnm = CnM.normalize(fp)  # normalize the encoding
         encoding = cnm.encoding
@@ -136,7 +136,7 @@ def append_before_ext(filename: str, addition: str):
 def load_tweets_to_db(
     tweets_txt: str, poster_name: str, explanation_name: str, 
     separator="\n====================", 
-    remove_rt=True, remove_links=True, take_longs=True, min_length = 10
+    remove_rt=True, remove_links=True, take_longs=True, min_length = 10, normalize_encoding=True
     ):
     """
     Full wrapper for loading tweets from .txt to DB
@@ -151,7 +151,9 @@ def load_tweets_to_db(
         remove_rt=remove_rt, remove_links=remove_links, take_longs=take_longs, min_length = min_length
     )
 
-    tweets = format_tweets(tweet_txt_to_np(tweets_txt, separator=separator), **format_kwargs)
+    tweets = format_tweets(
+        tweet_txt_to_np(tweets_txt, separator=separator, normalize_encoding=normalize_encoding),
+        **format_kwargs)
     save_tweets_list(tweets, poster_name, explanation_name)
 
     end = time()
@@ -159,7 +161,7 @@ def load_tweets_to_db(
 
 def parse_test(
     tweets_txt: str, separator="\n====================", 
-    remove_rt=True, remove_links=True, take_longs=True, min_length = 10):
+    remove_rt=True, remove_links=True, take_longs=True, min_length=10, normalize_encoding=True):
     """
     Dry-run, of sorts, to check if formatting and delimitation works
     """
@@ -169,5 +171,8 @@ def parse_test(
         remove_rt=remove_rt, remove_links=remove_links, take_longs=take_longs, min_length = min_length
     )
 
-    for tweet in format_tweets(tweet_txt_to_np(tweets_txt, separator=separator), **format_kwargs):
+    for tweet in format_tweets(
+        tweet_txt_to_np(tweets_txt, separator=separator, normalize_encoding=normalize_encoding),
+        **format_kwargs
+        ):
         print(tweet)

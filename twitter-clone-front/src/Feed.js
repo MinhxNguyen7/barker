@@ -12,7 +12,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 
 import {randomUser} from "./utils"
-import SidebarOption from "./SidebarOption";
 
 
 class Feed extends React.Component {

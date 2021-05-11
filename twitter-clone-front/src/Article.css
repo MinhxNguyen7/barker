@@ -64,6 +64,7 @@
 	color: rgba(100,100,100,1.00);
 	font-size: 18px;
 	font-weight: 400;
+	padding-bottom: 1%;
 }
 .section2 .sectionContent {
 	font-family: serif;
@@ -89,10 +90,7 @@ font-weight: 600;
 }
 
 .section2 .sectionContentSubTitle {
-font-family: serif;
-color: rgba(100,100,100,1.00);
-font-size: 16px;
-font-weight: 400;
+	font-size: 16px;
 }
 
 .section2 .sectionContent {

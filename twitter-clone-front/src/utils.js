@@ -17,6 +17,15 @@ export function scramble(word){
     return(newArr.join(""))
 }
 
+export function randomDate(){
+  const mocker_schema = {
+    date: {faker: 'date.past'}
+  }
+  const fake_date = mocker().schema('item', mocker_schema, 1).buildSync()['item'][0]['date']
+  console.log("Generated fake date: " + String(fake_date))
+  return fake_date
+}
+
 // Function for getting random user using mocker-data-generator
 // This is way too complicated
 export function randomUser(){
@@ -37,4 +46,4 @@ export function randomUser(){
   return fake_user
 }
 
-export default {scramble, getRandomUser: randomUser}
+export default {scramble, randomUser, randomDate}

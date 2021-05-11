@@ -4,6 +4,8 @@ import axios from "axios";
 
 import "./Article.css"
 
+import {randomDate} from "./utils"
+
 class Article extends React.Component{
     constructor(props){
         super(props)
@@ -40,7 +42,7 @@ class Article extends React.Component{
                 
                     <header>
                         <div class="profileLogo" style={{height: "5vh"}}> 
-                            <p class="logoPlaceholder"><img src="logoImage.png" alt="sample logo"/></p>
+                            <p class="logoPlaceholder"><img src="logoImage.png" alt="logo"/></p>
                         </div>
                     </header>
                     
@@ -48,7 +50,7 @@ class Article extends React.Component{
                         <section class="section2">
                             <article class="section2Content">
                                 <h2 class="sectionContentTitle">{this.state.title}</h2>
-                                <h3 class="sectionContentSubTitle">Mar 05, 2020</h3>
+                                <h3 class="sectionContentSubTitle">{randomDate().toLocaleString()}</h3>
                                 <hr class="myhr"/>
                                 <p class="sectionContent">{this.state.text}</p>
                             </article>

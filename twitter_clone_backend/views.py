@@ -61,8 +61,9 @@ class WholePostFromID(generics.GenericAPIView):
             post_id = self.kwargs['id']
             
             post = Tweet.objects.get(pk=post_id)
-            poster = Poster.objects.get(pk=post.poster.username)
-            explanation = Explanation.objects.get(pk=post.explanation.name)
+            poster = post.poster
+            explanation = post.explanation
+            article = post.article
 
             response = dict(
                 # Poster info
@@ -72,7 +73,7 @@ class WholePostFromID(generics.GenericAPIView):
                 verified = poster.verified,
                 # Post content
                 text = post.text,
-                image = post.image if post.article is None else "news:"+ str(post.article.id), 
+                image = post.image if post.article is None else "news:"+ str(article.id), 
                 # Explanation
                 explanation = explanation.text
             )

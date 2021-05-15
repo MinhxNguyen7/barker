@@ -5,7 +5,7 @@ from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from django.views import generic
 
-from .serializers import TweetSerializer, PosterSerializer, ExplanationSerializer
+from .serializers import TweetSerializer, PosterSerializer
 from .models import Tweet, Poster, Explanation, Viewer, Article
 
 import random

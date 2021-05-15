@@ -37,8 +37,10 @@ class Post extends React.Component{
   }
 
   componentDidMount(){
-    const id = String(this.props.image).substring(5)
-    this.getBlurb(id)
+    if(String(this.props.image).startsWith("news:")){
+      const id = String(this.props.image).substring(5)
+      this.getBlurb(id)
+    }
   }
 
   render(){

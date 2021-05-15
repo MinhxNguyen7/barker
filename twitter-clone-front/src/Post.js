@@ -10,17 +10,35 @@ import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
+import axios from "axios";
+import settings from "./settings"
 
 class Post extends React.Component{ 
   constructor(props){
     super(props);
-    this.state = {isFlipped: false, isPaused: false}
+    this.state = {isFlipped: false, isPaused: false, blurb: ""}
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e){
     e.preventDefault();
     this.setState(prevState => ({ isFlipped: !prevState.isFlipped }));
+  }
+
+  getBlurb(id){
+    console.log("Getting blurb with id " + id)
+    axios
+        .get(settings.GET_ARTICLE_FROM_ID_URL + id + "/")
+        .then((response)=>{
+            const blurb_text = String(response.data.text).substring(0, 70) + "..."
+            this.setState({blurb: blurb_text})
+        })
+        .catch(err=>{console.log(err)})
+  }
+
+  componentDidMount(){
+    const id = String(this.props.image).substring(5)
+    this.getBlurb(id)
   }
 
   render(){
@@ -34,7 +52,7 @@ class Post extends React.Component{
       media = (
         <a className="news__a" href={news_url} target="_blank" rel="noopener noreferrer">
           <Card body className="news__card">
-            This is a blurb of the news article
+            {this.state.blurb}
           </Card>
         </a>
       )
@@ -123,7 +141,7 @@ class Post extends React.Component{
                   <span className="post__headerSpecial">
                   {this.props.verified && <VerifiedUserIcon className="post__badge"/>} @
                     {this.props.username}
-                </span>
+                  </span>
                 </h3>
               </div>
               <div className="post__headerDescription">

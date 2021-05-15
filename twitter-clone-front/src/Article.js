@@ -18,7 +18,11 @@ class Article extends React.Component{
             .get(settings.GET_ARTICLE_FROM_ID_URL + this.props.id + "/")
             .then((response)=>{
                 const d = response.data
-                this.setState({title:d.title, text:d.text})
+                const text = d.text.replace( // eslint-disable-next-line
+                    /(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi,
+                    function(){return '<a href="' + arguments[2] + '"target="_blank style="cursor: pointer"">' + (arguments[7] || arguments[2]) + '</a>'}
+                  )
+                this.setState({title:d.title, text:text})
                 this.forceUpdate()
             })
             .catch(err=>{console.log(err)})
@@ -52,7 +56,7 @@ class Article extends React.Component{
                                 <h2 class="sectionContentTitle">{this.state.title}</h2>
                                 <h3 class="sectionContentSubTitle">{randomDate().toLocaleString()}</h3>
                                 <hr class="myhr"/>
-                                <p class="sectionContent">{this.state.text}</p>
+                                <p class="sectionContent" dangerouslySetInnerHTML={{ __html: this.state.text }}/>
                             </article>
                             
                         </section>

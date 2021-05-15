@@ -25,39 +25,37 @@ class Post extends React.Component{
     this.setState(prevState => ({ isFlipped: !prevState.isFlipped }));
   }
 
-  getBlurb(id){
-    console.log("Getting blurb with id " + id)
-    axios
-        .get(settings.GET_ARTICLE_FROM_ID_URL + id + "/")
-        .then((response)=>{
-            const blurb_text = String(response.data.text).substring(0, 70) + "..."
-            this.setState({blurb: blurb_text})
-        })
-        .catch(err=>{console.log(err)})
-  }
-
-  componentDidMount(){
-    if(String(this.props.image).startsWith("news:")){
-      const id = String(this.props.image).substring(5)
-      this.getBlurb(id)
-    }
-  }
-
   render(){
     // Check if react-player can play media
     // Falls back to image display if it cannot
-    let media
+    let media, text, explanation
     const media_url = String(this.props.image)
+
+    if(this.props.explanation==="" || this.props.explanation===undefined){
+      explanation = "This Bark current does not have an explanation"
+    }
+    else{
+      explanation = this.props.explanation.replace( // eslint-disable-next-line
+      /(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi,
+      function(){return '<a href="' + arguments[2] + '" target="_blank">' + (arguments[7] || arguments[2]) + '</a>' }
+    )}
+    
+    text = this.props.text.replace( // eslint-disable-next-line
+      /(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi,
+      function(){return '<a href="' + arguments[2] + '"target="_blank">' + (arguments[7] || arguments[2]) + '</a>'}
+    )
     
     if(media_url.startsWith("news:")){
       const news_url = [window.location.origin, "news", media_url.substring(5)].join("/")
       media = (
         <a className="news__a" href={news_url} target="_blank" rel="noopener noreferrer">
           <Card body className="news__card">
-            {this.state.blurb}
+            {this.props.text}
           </Card>
         </a>
       )
+      text = this.props.text
+      text = text.substring(0, text.length-3)
     }
     else{
       if(ReactPlayer.canPlay(media_url)){
@@ -101,21 +99,6 @@ class Post extends React.Component{
         media = <img src={media_url} alt=""/>
       }
     }
-
-    let explanation
-    if(this.props.explanation==="" || this.props.explanation===undefined){
-      explanation = "This Bark current does not have an explanation"
-    }
-    else{
-      explanation = this.props.explanation.replace( // eslint-disable-next-line
-      /(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi,
-      function(){return '<a href="' + arguments[2] + '" target="_blank">' + (arguments[7] || arguments[2]) + '</a>' }
-    )}
-    
-    const text = this.props.text.replace( // eslint-disable-next-line
-      /(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi,
-      function(){return '<a href="' + arguments[2] + '"target="_blank">' + (arguments[7] || arguments[2]) + '</a>'}
-    )
 
     const flipper = (
       <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">

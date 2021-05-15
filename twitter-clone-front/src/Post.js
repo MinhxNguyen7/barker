@@ -10,9 +10,6 @@ import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
-import axios from "axios";
-import settings from "./settings"
-
 class Post extends React.Component{ 
   constructor(props){
     super(props);

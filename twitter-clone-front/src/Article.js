@@ -4,7 +4,7 @@ import axios from "axios";
 
 import "./Article.css"
 
-import {randomDate} from "./utils"
+import {randomDate, scramble} from "./utils"
 
 class Article extends React.Component{
     constructor(props){
@@ -22,7 +22,19 @@ class Article extends React.Component{
                     /(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi,
                     function(){return '<a href="' + arguments[2] + '"target="_blank style="cursor: pointer"">' + (arguments[7] || arguments[2]) + '</a>'}
                   )
-                this.setState({title:d.title, text:text})
+                let title
+                // If there's no title, scramble the first 6 words to make the title
+                if(d.title === null || d.title === ""){ 
+                    let newArr = []
+                    String(d.text).split(" ").slice(0,6).forEach(word => {
+                        newArr.push(scramble(word))
+                    });
+                    title = newArr.join(" ").replace(".", "")
+                }
+                else{
+                    title = d.title
+                }
+                this.setState({title:title, text:text})
                 this.forceUpdate()
             })
             .catch(err=>{console.log(err)})

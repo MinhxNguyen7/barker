@@ -26,7 +26,7 @@ class Post extends React.Component{
     // Check if react-player can play media
     // Falls back to image display if it cannot
     let media, text, explanation
-    const media_url = String(this.props.image)
+    const media_url = String(this.props.media)
 
     if(this.props.explanation==="" || this.props.explanation===undefined){
       explanation = "This Bark current does not have an explanation"

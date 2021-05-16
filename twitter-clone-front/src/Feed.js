@@ -85,14 +85,14 @@ class Feed extends React.Component {
           }
 
           // If the post's image URL contains API redirect, set image url to the API's answer
-          if(post['image'].startsWith('api:')){
+          if(post['media'].startsWith('api:')){
             axios
-              .get(post['image'].substring(4))
-              .then(image_response => post['image'] = image_response.data)
-              .catch(err => console.log(err + "—retrieving from " + post['image'].substring(4)))
+              .get(post['media'].substring(4))
+              .then(media_response => post['media'] = media_response.data)
+              .catch(err => console.log(err + "—retrieving from " + post['media'].substring(4)))
 
             // Sets image url to a loading gif while waiting for photo
-            post['image'] = "https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif"
+            post['media'] = "https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif"
           }
 
           // If post's text starts with [repeat] tag, put post id back into idList
@@ -145,6 +145,7 @@ class Feed extends React.Component {
 
   exploreClick(){
     console.log("Clicked exploreClick")
+    window.open("https://github.com/LeoLinRui/SSTP/wiki", "_blank")
   }
 
   profileClick(){
@@ -182,7 +183,7 @@ class Feed extends React.Component {
               text={post.text}
               explanation={post.explanation}
               avatar={post.avatar}
-              image={post.image}
+              media={post.media}
             />
           ))}
         </FlipMove>

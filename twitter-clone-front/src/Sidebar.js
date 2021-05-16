@@ -26,13 +26,13 @@ class Sidebar extends React.Component {
       <div className="sidebar">
         <img className="sidebar__twitterIcon" src={PageIcon} alt="Barker Icon"/>
 
-        <SidebarOption Icon={HomeIcon} text={scramble("Home")} />
-        <SidebarOption Icon={SearchIcon} text={scramble("Explore")} />
+        <SidebarOption active Icon={HomeIcon} text={scramble("Home")} />
+        <SidebarOption Icon={SearchIcon} text={"Explore"} onClick={()=>window.open("https://github.com/LeoLinRui/SSTP/wiki", "_blank")}/>
         <SidebarOption Icon={NotificationsNoneIcon} text={scramble("Notifications")} />
         <SidebarOption Icon={MailOutlineIcon} text={scramble("Messages")} />
         <SidebarOption Icon={BookmarkBorderIcon} text={scramble("Bookmarks")} />
         <SidebarOption Icon={ListAltIcon} text={scramble("Lists")} />
-        <SidebarOption active Icon={PermIdentityIcon} text="Profile" onClick={this.props.nextViewer}/>
+        <SidebarOption Icon={PermIdentityIcon} text="Profile" onClick={this.props.nextViewer}/>
 
         <SidebarOption Icon={MoreHorizIcon} text={scramble("More")} />
 

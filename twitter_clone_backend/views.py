@@ -1,7 +1,7 @@
 # from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, status
 from rest_framework.response import Response
 from django.views import generic
 
@@ -10,7 +10,9 @@ from .models import Tweet, Poster, Explanation, Viewer, Article
 
 import random
 import os.path
+from glob import glob
 
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 class ViewersView(viewsets.ModelViewSet):
 
@@ -57,28 +59,54 @@ class FollowingListView(generics.ListAPIView):
 
 
 class WholePostFromID(generics.GenericAPIView):
-        def get(self, request, *args, **kwargs):
-            post_id = self.kwargs['id']
-            
-            post = Tweet.objects.get(pk=post_id)
-            poster = post.poster
-            explanation = post.explanation
-            article = post.article
+    def get(self, request, *args, **kwargs):
+        post_id = self.kwargs['id']
+        
+        post = Tweet.objects.get(pk=post_id)
+        poster = post.poster
+        explanation = post.explanation
+        article = post.article
 
-            response = dict(
-                # Poster info
-                username = poster.username,
-                displayName = poster.displayName,
-                avatar = poster.avatar,
-                verified = poster.verified,
-                # Post content
-                text = post.text if post.article is None else article.text[:70]+"...",
-                media = post.image if post.article is None else "news:"+ str(article.id), 
-                # Explanation
-                explanation = explanation.text
+        def image_cat_gen():
+            category = "test"
+            api_base = "/api/img/"
+            return  api_base + category + "/"
+
+        response = dict(
+            # Poster info
+            username = poster.username,
+            displayName = poster.displayName,
+            avatar = poster.avatar,
+            verified = poster.verified,
+            # Post content
+            text = post.text if post.article is None else article.text[:70]+"...",
+            media = post.image if post.article is None else "news:"+ str(article.id),
+            img = image_cat_gen(),
+            # Explanation
+            explanation = explanation.text
+        )
+
+        return JsonResponse(response)
+
+class CustomImageView(generics.GenericAPIView):
+    def get(self, request, *args, **kwargs):
+        category = self.kwargs['category']
+        directory = os.path.join(PROJECT_ROOT, "imgs", category)
+
+        img_path = random.choice(
+            glob(os.path.join(directory, "*.png"))+
+            glob(os.path.join(directory, "*.jpg"))+
+            glob(os.path.join(directory, "*.jpeg"))
             )
 
-            return JsonResponse(response)
+        with open(img_path, "rb") as f:
+            _, extension = os.path.splitext(img_path)
+            response = HttpResponse(
+                f.read(), 
+                content_type=f"image/{extension[1:]}"
+                )
+        
+        return response
 
 class ArticleView(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):

@@ -33,6 +33,8 @@ urlpatterns = [
     path('api/getFollowing/<str:viewer_name>/', views.FollowingListView.as_view(), name='following-list-view'),
     # Gets list of post IDs for a viewer
     path('api/ViewerToId/<str:viewer_name>/', views.ViewerToIdList.as_view({"get": "list"}), name='viewer-to-id-view'),
+    # Gets custom local image by category
+    path('api/img/<str:category>/', views.CustomImageView.as_view(), name='custom-image-view'),
     # 
     path('api/article/<int:article_id>/', views.ArticleView.as_view(), name='article-from-id-view'),
     # For frontend

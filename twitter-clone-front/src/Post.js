@@ -9,11 +9,12 @@ import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite"
 
 class Post extends React.Component{ 
   constructor(props){
     super(props);
-    this.state = {isFlipped: false, isPaused: false, blurb: ""}
+    this.state = {isFlipped: false, isPaused: false, blurb: "", liked: false}
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -134,7 +135,11 @@ class Post extends React.Component{
             <div className="post__footer">
               <ChatBubbleOutlineIcon fontSize="small" />
               <RepeatIcon fontSize="small" />
-              <FavoriteBorderIcon fontSize="small" />
+              <a style={{display:"block"},{cursor: "pointer"}} onClick={()=> this.setState({liked: !this.state.liked})}>{
+                this.state.liked ? 
+                <FavoriteIcon fontSize="small" style={{color:"rgb(224, 36, 94)"}}/> :
+                <FavoriteBorderIcon fontSize="small" />
+              }</a>
             </div>
           </div>
 

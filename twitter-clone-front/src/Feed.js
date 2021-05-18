@@ -1,24 +1,24 @@
 import React from "react";
 import axios from "axios"
 
-import settings from "./settings"
+import settings from "./functionals/settings"
 
 import Post from "./Post";
 import "./Feed.css";
 import FlipMove from "react-flip-move";
 
-import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
-import {randomUser} from "./utils"
+import {randomUser} from "./functionals/utils"
 
 
 class Feed extends React.Component {
   constructor(props) {
     super(props)
     this.state = {loading: false, queue: false, posts: [], idList: [], viewedList: []};
-    this.homeClick = this.homeClick.bind(this);
+    this.homeClick = this.moreClick.bind(this);
     this.exploreClick = this.exploreClick.bind(this);
     this.profileClick = this.profileClick.bind(this);
   }
@@ -135,17 +135,13 @@ class Feed extends React.Component {
     }
   }
 
-  homeClick(){
-    console.log("Clicked homeClick")
-    this.updateIdList()
-    // Idk why, but only scrolling once doesn't go all the way
-    window.scrollTo(0,0)
-    window.scrollTo(0,0)
+  moreClick(){
+    console.log("Clicked moreClick")
+    window.open("https://github.com/LeoLinRui/SSTP/wiki", "_blank")
   }
 
   exploreClick(){
     console.log("Clicked exploreClick")
-    window.open("https://github.com/LeoLinRui/SSTP/wiki", "_blank")
   }
 
   profileClick(){
@@ -161,9 +157,9 @@ class Feed extends React.Component {
       head = 
         <h2>
           <div className="topIconDiv">
-            <HomeIcon classname="topIcon" onClick={this.homeClick}/>
-            <SearchIcon classname="topIcon" onClick={this.exploreClick}/>
             <PermIdentityIcon classname="topIcon" onClick={this.profileClick}/>
+            <SearchIcon classname="topIcon" onClick={this.exploreClick}/>
+            <MoreHorizIcon classname="topIcon" onClick={this.moreClick}/>
           </div>
         </h2>
     }

@@ -1,5 +1,5 @@
 import React from "react";
-import settings from "./settings"
+import settings from "./functionals/settings"
 
 import Sidebar from "./Sidebar";
 import Feed from "./Feed";
@@ -10,7 +10,7 @@ import "./App.css";
 import axios from "axios";
 
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {viewerNum: 0, viewersList:[]}
@@ -76,4 +76,3 @@ class App extends React.Component {
   }
 }
 
-export default App;

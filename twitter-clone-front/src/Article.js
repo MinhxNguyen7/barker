@@ -1,10 +1,10 @@
 import React from "react";
-import settings from "./settings"
+import settings from "./functionals/settings"
 import axios from "axios";
 
 import "./Article.css"
 
-import {randomDate, scramble} from "./utils"
+import {randomDate, scramble} from "./functionals/utils"
 
 class Article extends React.Component{
     constructor(props){

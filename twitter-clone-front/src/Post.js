@@ -135,7 +135,7 @@ class Post extends React.Component{
             <div className="post__footer">
               <ChatBubbleOutlineIcon fontSize="small" />
               <RepeatIcon fontSize="small" />
-              <a style={{display:"block"},{cursor: "pointer"}} onClick={()=> this.setState({liked: !this.state.liked})}>{
+              <a style={{display:"block", cursor: "pointer"}} onClick={()=> this.setState({liked: !this.state.liked})}>{
                 this.state.liked ? 
                 <FavoriteIcon fontSize="small" style={{color:"rgb(224, 36, 94)"}}/> :
                 <FavoriteBorderIcon fontSize="small" />

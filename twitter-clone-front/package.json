@@ -11,7 +11,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.21.1",
     "firebase": "^7.24.0",
-    "firebase-admin": "^9.7.0",
+    "firebase-admin": "^9.8.0",
     "mocker-data-generator": "^2.12.0",
     "react": "^16.14.0",
     "react-card-flip": "^1.1.1",
@@ -22,7 +22,7 @@
     "react-scripts": "3.4.1",
     "react-twitter-embed": "^3.0.3",
     "react-visibility-sensor": "^5.1.1",
-    "reactstrap": "^5.0.0"
+    "reactstrap": "^8.9.0"
   },
   "scripts": {
     "start": "react-scripts start",

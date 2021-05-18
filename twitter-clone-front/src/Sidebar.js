@@ -12,7 +12,7 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { Button } from "@material-ui/core";
 
 import PageIcon from "./media/BarkerLogo.png";
-import {scramble} from "./utils"
+import {scramble} from "./functionals/utils"
 import dog from "./media/dog.mp3"
 
 class Sidebar extends React.Component {
@@ -27,14 +27,13 @@ class Sidebar extends React.Component {
         <img className="sidebar__twitterIcon" src={PageIcon} alt="Barker Icon"/>
 
         <SidebarOption active Icon={HomeIcon} text={scramble("Home")} />
-        <SidebarOption Icon={SearchIcon} text={"Explore"} onClick={()=>window.open("https://github.com/LeoLinRui/SSTP/wiki", "_blank")}/>
+        <SidebarOption Icon={SearchIcon} text={"Explore"} />
         <SidebarOption Icon={NotificationsNoneIcon} text={scramble("Notifications")} />
         <SidebarOption Icon={MailOutlineIcon} text={scramble("Messages")} />
         <SidebarOption Icon={BookmarkBorderIcon} text={scramble("Bookmarks")} />
         <SidebarOption Icon={ListAltIcon} text={scramble("Lists")} />
         <SidebarOption Icon={PermIdentityIcon} text="Profile" onClick={this.props.nextViewer}/>
-
-        <SidebarOption Icon={MoreHorizIcon} text={scramble("More")} />
+        <SidebarOption Icon={MoreHorizIcon} text="More" onClick={()=>window.open("https://github.com/LeoLinRui/SSTP/wiki", "_blank")}/>
 
         <Button variant="outlined" className="sidebar__tweet" onClick={this.playAudio}>
           Bark

@@ -48,6 +48,10 @@
   position: relative;
   width: 75%;
 }
+.cardTextDiv {
+  padding-left: 20px;
+  font-size: smaller;
+}
 
 .post__footer {
   display: flex;

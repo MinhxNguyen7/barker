@@ -4,7 +4,7 @@ import ReactCardFlip from 'react-card-flip';
 import VisibilitySensor from 'react-visibility-sensor';
 
 import "./Post.css";
-import { Avatar, Card } from "@material-ui/core";
+import { Avatar, Card, CardImg } from "@material-ui/core";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import RepeatIcon from "@material-ui/icons/Repeat";
@@ -47,8 +47,10 @@ class Post extends React.Component{
       const news_url = [window.location.origin, "news", media_url.substring(5)].join("/")
       media = (
         <a className="news__a" href={news_url} target="_blank" rel="noopener noreferrer">
-          <Card body className="news__card">
-            {this.props.text}
+          <Card className="news__card" style={{paddingRight: "20px"}}>
+            <div className="cardTextDiv">
+              {this.props.text.split(" ").slice(0,20).join(" ")+"..."}
+            </div>
           </Card>
         </a>
       )

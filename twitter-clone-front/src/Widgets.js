@@ -1,23 +1,19 @@
-import { Card } from "@material-ui/core";
-import CardMedia from '@material-ui/core/CardMedia'
-import CardContent from '@material-ui/core/CardContent';
-
 import React from "react";
 import "./Widgets.css";
+
+import NewsCard from "./NewsCard"
 
 
 function Widgets() {
   return (
     <div className="widgets">
-      <div className="widgets__widgetContainer">
-        <h2>What's happening</h2>
-        <Card>
-        <CardMedia style = {{ height: 0, paddingTop: '56%'}}
-          image="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Banana-Single.jpg/680px-Banana-Single.jpg"/>
-        <CardContent>
-          Hello 
-        </CardContent>
-        </Card>
+      <div className="topTextContainer">
+        <div className="topTextContainer__div">
+          <h2 className="topText">Latest News</h2>
+          <div className="NewsCards" style={{paddingTop: "10px"}}>
+            <NewsCard text="Lorem Ipsum Dolor Sit Amet"/>
+          </div>
+        </div>
       </div>
     </div>
   );

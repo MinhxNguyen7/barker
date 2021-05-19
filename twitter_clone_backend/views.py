@@ -79,7 +79,7 @@ class WholePostFromID(generics.GenericAPIView):
             avatar = poster.avatar,
             verified = poster.verified,
             # Post content
-            text = post.text if post.article is None else article.text[:70]+"...",
+            text = post.text if post.article is None else " ".join(article.text.split(" ")[:30]),
             media = post.image if post.article is None else "news:"+ str(article.id),
             img = image_cat_gen(),
             # Explanation

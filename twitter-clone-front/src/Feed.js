@@ -73,6 +73,7 @@ class Feed extends React.Component {
       axios
         .get(postURL)
         .then(reponse => {
+          this.setState({loading: true})
           let post = reponse.data;
           // console.log(post)
 
@@ -103,9 +104,10 @@ class Feed extends React.Component {
 
           // Adds the post into the state
           this.setState({posts: this.state.posts.concat(post), loading: false});
-          this.forceUpdate()
+          
         })
         .catch((err) => "Error retrieving post: " + err)
+      this.setState({loading: false})
     }
     
   }

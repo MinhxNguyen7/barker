@@ -199,9 +199,10 @@ def news_processing(
 
 
 def load_news_to_db(tweets_txt: str, poster_name: str, explanation_name: str):
+    start = time()
     articles = news_processing(tweets_txt)
 
-    for a in articles:
+    for idx, a in enumerate(articles):
         article = Article()
         tweet = Tweet()
 
@@ -213,3 +214,8 @@ def load_news_to_db(tweets_txt: str, poster_name: str, explanation_name: str):
         tweet.explanation = Explanation.objects.get(pk=explanation_name)
         tweet.text = "news from "+tweet.explanation.pk
         tweet.save()
+
+        print(f'saved article: \n====={idx:05}/{len(articles):05}=====')
+
+    end = time()
+    print(f"Loaded {len(articles)} articles in {end-start} seconds")

@@ -29,7 +29,7 @@ class Feed extends React.Component {
   }
   
   componentDidMount(){
-    this.addPost()
+    this.addPost(3)
   }
 
   componentDidUpdate(prevProps){
@@ -103,6 +103,7 @@ class Feed extends React.Component {
 
           // Adds the post into the state
           this.setState({posts: this.state.posts.concat(post), loading: false});
+          this.forceUpdate()
         })
         .catch((err) => "Error retrieving post: " + err)
     }
@@ -116,7 +117,7 @@ class Feed extends React.Component {
     // Check if there are any posts left
     if(this.state.idList.length > 0){
       // checks if the user has scrolled to the bottom of the element
-      if (height_target <= Math.ceil(element.target.clientHeight) + 400) {
+      if (height_target <= Math.ceil(element.target.clientHeight) + 500) {
         // only add post if a post isn't already loading
         
         if(this.state.loading === true) {
@@ -183,6 +184,7 @@ class Feed extends React.Component {
             />
           ))}
         </FlipMove>
+        <button onClick={()=>this.forceUpdate()}>click</button>
         </div>
     );
   }

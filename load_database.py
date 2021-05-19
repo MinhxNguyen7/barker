@@ -1,4 +1,4 @@
-from twitter_clone_backend.models import Tweet, Poster, Explanation
+from twitter_clone_backend.models import Tweet, Poster, Explanation, Article
 
 import numpy as np
 import pandas as pd
@@ -159,7 +159,8 @@ def load_tweets_to_db(
     end = time()
     print(f"Loaded {len(tweets)} Tweets in {end-start} seconds")
 
-def parse_test(
+
+def tweet_parse_test(
     tweets_txt: str, separator="\n====================", 
     remove_rt=True, remove_links=True, take_longs=True, min_length=10, normalize_encoding=True):
     """
@@ -176,3 +177,39 @@ def parse_test(
         **format_kwargs
         ):
         print(tweet)
+
+######################################## News stuff ########################################
+def news_processing(
+  fp: str,
+  separator="\n===================="
+  ):
+  # Load articles values into df and remove delimiters
+  df = pd.read_csv(fp, sep=separator, names=['article'], dtype="str")
+  df = df.loc[df.article!="====================", :]
+
+  # remove some tags
+  articles = []
+  for a in df.article:
+    article = a
+    article = article.replace("(CNN)", "")
+    article = article.replace("<|startoftext|>", "")
+    articles.append(article)
+
+  return articles
+
+
+def load_news_to_db(tweets_txt: str, poster_name: str, explanation_name: str):
+    articles = news_processing(tweets_txt)
+
+    for a in articles:
+        article = Article()
+        tweet = Tweet()
+
+        article.text = a
+        article.source = explanation_name
+        article.save()
+        tweet.poster = Poster.objects.get(pk=poster_name)
+        tweet.article = article
+        tweet.explanation = Explanation.objects.get(pk=explanation_name)
+        tweet.text = "news from "+tweet.explanation.pk
+        tweet.save()

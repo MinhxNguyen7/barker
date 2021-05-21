@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os.path
-from random import choice
-from string import printable
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''.join(choice(printable) for i in range(50))
+SECRET_KEY = "@ic1f-2=2aw2z0$a-!7gqor0me0mgum1n)9%n@1%2z8j%^8197"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

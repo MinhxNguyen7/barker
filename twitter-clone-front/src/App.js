@@ -14,7 +14,6 @@ export default class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {viewerNum: 0, viewersList:[]}
-    this.nextViewer = this.nextViewer.bind(this)
   }
 
   componentDidMount(){
@@ -29,17 +28,9 @@ export default class App extends React.Component {
     }
   }
 
-  nextViewer(){
+  setViewer = (viewerNum) => {
     window.scrollTo(0,0)
-    // Increments viewerNum
-    // Wraps back to 0 when index exceeds length of viewersList
-    if(this.state.viewerNum <= this.state.viewersList.length-2){
-      this.setState({viewerNum: this.state.viewerNum+1})
-    }
-    else{
-      this.setState({viewerNum: 0})
-    }
-    console.log("Changed viewer to " + this.state.viewersList[this.state.viewerNum])
+    this.setState({viewerNum: viewerNum})
   }
 
   render(){
@@ -47,10 +38,12 @@ export default class App extends React.Component {
 
     let body = null
     if(pathname === "/"){
+      const viewersObj = {
+        list: this.state.viewersList, num: this.state.viewerNum, setNum: this.setViewer}
       body = (
               <div className="app">
-                <Sidebar nextViewer={this.nextViewer}/>
-                <Feed viewer={this.state.viewersList[this.state.viewerNum]}/>
+                <Sidebar viewers={viewersObj}/>
+                <Feed viewers={viewersObj}/>
                 <Widgets />
               </div>
               )
@@ -64,7 +57,7 @@ export default class App extends React.Component {
       body = <Article id={id}/>
     }
     if(body==null){
-      body=<div>Error 404: Not Found</div>
+      body=<div style={{fontSize: "xx-large"}}>Error 404: Not Found</div>
     }
 
     return (

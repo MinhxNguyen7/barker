@@ -32,21 +32,23 @@ class Feed extends React.Component {
     this.addPost(3)
   }
 
-  componentDidUpdate(prevProps){
+  componentDidUpdate(prevProps, prevState){
     if(this.state.queue === true){
       this.addPost()
       this.state.queue = false
     }
     // Check if Viewer has been changed
-    if(prevProps.viewer !== this.props.viewer){
+    const prevViewer = prevProps.viewers.list[prevProps.viewers.num] 
+    const currentViewer = this.props.viewers.list[this.props.viewers.num] 
+    if(prevViewer !== currentViewer){
       this.updateIdList()
     }
   }
 
   updateIdList(){
     this.setState({posts: [], loading: true})
-
-      const viewerURL = settings.GET_IDs_FROM_VIEWER_URL + this.props.viewer + "/"
+      const currentViewer = this.props.viewers.list[this.props.viewers.num] 
+      const viewerURL = settings.GET_IDs_FROM_VIEWER_URL + currentViewer + "/"
       console.log("Getting IDs from: " + viewerURL)
       axios
         .get(viewerURL)

@@ -1,6 +1,7 @@
 # from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
+from django.http.response import Http404
 from rest_framework import viewsets, generics, status
 from rest_framework.response import Response
 from django.views import generic
@@ -100,13 +101,19 @@ class WholePostFromID(generics.GenericAPIView):
 class CustomImageView(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         category = self.kwargs['category']
+
         directory = os.path.join(PROJECT_ROOT, "imgs", category)
 
-        img_path = random.choice(
-            glob(os.path.join(directory, "*.png"))+
+        eligible_list = (
+            glob(os.path.join(directory, "*.png")) +
             glob(os.path.join(directory, "*.jpg"))+
             glob(os.path.join(directory, "*.jpeg"))
             )
+
+        if len(eligible_list) == 0: # Make sure that there are available images
+            return Response("Category not found: "+category, status=404)
+        
+        img_path = random.choice(eligible_list)
 
         with open(img_path, "rb") as f:
             _, extension = os.path.splitext(img_path)

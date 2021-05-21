@@ -155,7 +155,7 @@ class Feed extends React.Component {
         <h2>
           <div className="topIconDiv">
             <PermIdentityIcon classname="topIcon" onClick={this.profileClick}/>
-            <SearchIcon classname="topIcon" onClick={this.exploreClick}/>
+            {/* <SearchIcon classname="topIcon" onClick={this.exploreClick}/> */}
             <MoreHorizIcon classname="topIcon" onClick={this.moreClick}/>
           </div>
           <ViewSelector 
@@ -186,7 +186,7 @@ class Feed extends React.Component {
             />
           ))}
         </FlipMove>
-        <button onClick={()=>this.addPost()}>click</button>
+        {/* <button onClick={()=>this.addPost()}>click</button> */}
         </div>
     );
   }

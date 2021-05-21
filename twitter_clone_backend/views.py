@@ -35,9 +35,10 @@ class ViewerToIdList(viewsets.ModelViewSet):
         # List of posters' names who are followed by the viewer above
         following_list = Poster.objects.filter(viewer__name=viewer_name).values_list('username', flat=True)
 
-        # 'Pure,' int list of post IDs
-        ids_list = Tweet.objects.filter(poster__username__in=following_list).values_list('id', flat=True)
-        return Response(ids_list)
+        # 'Pure' int list of post IDs
+        tweet_ids = list(Tweet.objects.filter(poster__username__in=following_list).values_list('id', flat=True))
+
+        return JsonResponse({"tweetIds": tweet_ids})
 
 
 class TweetsView(viewsets.ModelViewSet):

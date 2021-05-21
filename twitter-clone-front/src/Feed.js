@@ -53,10 +53,10 @@ class Feed extends React.Component {
       axios
         .get(viewerURL)
         .then((reponse)=>{
-          const data = reponse.data
-          console.log(data)
+          const tweetIds = reponse.data.tweetIds
+          console.log(tweetIds)
   
-          this.setState({idList: data})
+          this.setState({idList: tweetIds})
           this.setState({loading: false})
           this.addPost(6);
         })

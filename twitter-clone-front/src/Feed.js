@@ -103,6 +103,10 @@ class Feed extends React.Component {
             this.state.idList.push(id)
           }
 
+          if(post['avatar']===null || post['avatar']===""){
+            post['avatar'] = "/api/img/ProfilePic/"+String(Math.round(Math.random()*1000))
+          }
+
           // Adds the post into the state
           this.setState({posts: this.state.posts.concat(post), loading: false});
           

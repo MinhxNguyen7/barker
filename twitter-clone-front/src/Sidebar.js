@@ -1,6 +1,8 @@
 import React from "react";
 import "./Sidebar.css";
 import SidebarOption from "./SidebarOption";
+import ViewSelector from "./ViewSelector"
+
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 //import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
@@ -14,6 +16,7 @@ import { Avatar, Button, Menu, MenuItem } from "@material-ui/core";
 import PageIcon from "./media/BarkerLogo.png";
 import {scramble} from "./functionals/utils"
 import dog from "./media/dog.mp3"
+import { GET_VIEWERS_URL } from "./functionals/settings";
 
 class Sidebar extends React.Component {
   constructor(props){
@@ -51,22 +54,11 @@ class Sidebar extends React.Component {
         </audio>
 
         {/* Menu for changing viewers */}
-        <Menu
-          id="viewers-menu"
-          anchorEl={this.state.anchorEl}
-          open={Boolean(this.state.anchorEl)}
-          disableEnforceFocus
-          onClose={()=>this.setState({anchorEl:false})}
-        >{viewers.list.map((viewer, index) => (
-          <MenuItem key={index}
-          onClick={()=>{viewers.setNum(index);this.setState({anchorEl:false})}}
-          >
-            <div class="viewerOptionAvatarDiv" style={{padding:"5px"}}>
-              <Avatar src={"/api/img/Website/"+String(Math.round(Math.random()*1000))}/>
-            </div>
-            <div class="viewerOptionText">{viewer}</div>
-          </MenuItem>
-        ))}</Menu>
+        <ViewSelector 
+          anchorEl={this.state.anchorEl} 
+          setAnchorEl={(val)=>this.setState({anchorEl:val})}
+          viewerObj={viewers}
+          />
       </div>
     );
   }

@@ -18,26 +18,35 @@ class Widgets extends React.Component {
     const viewerURL = settings.GET_IDs_FROM_VIEWER_URL + viewer + "/"
   
     console.log("Getting news IDs from: " + viewerURL)
+    let newsOptions = []
     axios
       .get(viewerURL)
       .then((reponse)=>{
         const newsTweetIds = reponse.data.newsTweetIds
         console.log(newsTweetIds)
-        this.setState({idList: newsTweetIds.splice(0,5)})
+        newsTweetIds.splice(0,5).forEach(id => {
+          newsOptions.push(<NewsCard id={id} key={"newsCard__"+id}/>)
+        });
+
+        this.setState({
+          idList: newsTweetIds.splice(0,5),
+          newsOptions: newsOptions
+        })
+        this.forceUpdate()
       })
       .catch(err=>{console.log(err)})
   }
 
-  shouldComponentUpdate(prevProps){
-    const prevViewer = prevProps.viewers.list[prevProps.viewers.num] 
-    const currentViewer = this.props.viewers.list[this.props.viewers.num] 
-    if(prevViewer !== currentViewer){
+  shouldComponentUpdate(prevProps, prevState){
+    if(prevProps.viewers.num !== this.props.viewers.num){
       this.updateList()
       return true
     }
-    else{
+    if(prevState.idList !== this.state.idList){
+      console.log("idList-powered update")
       return true
     }
+    return false
   }
 
   render(){
@@ -47,9 +56,7 @@ class Widgets extends React.Component {
         <div className="topTextContainer__div">
           <h2 className="topText">Latest News</h2>
           <div className="NewsCards" style={{paddingTop: "10px"}}>
-            <FlipMove>{this.state.idList.map((id, index) => (
-              <NewsCard id={id} key={"newsCard__"+index}/>
-            ))}</FlipMove>
+            <FlipMove>{this.state.newsOptions}</FlipMove>
           </div>
         </div>
       </div>

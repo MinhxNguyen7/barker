@@ -1,31 +1,23 @@
 import React from "react";
 import axios from "axios"
 
-import settings from "./functionals/settings"
-
 import Post from "./Post";
 import "./Feed.css";
-import FlipMove from "react-flip-move";
+import ViewSelector from "./ViewSelector"
 
+import FlipMove from "react-flip-move";
 import SearchIcon from "@material-ui/icons/Search";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
 import {randomUser} from "./functionals/utils"
+import settings from "./functionals/settings"
 
 
 class Feed extends React.Component {
   constructor(props) {
     super(props)
     this.state = {loading: false, queue: false, posts: [], idList: [], viewedList: []};
-    this.homeClick = this.moreClick.bind(this);
-    this.exploreClick = this.exploreClick.bind(this);
-    this.profileClick = this.profileClick.bind(this);
-  }
-
-  // Only update DOM when things aren't loading
-  shouldComponentUpdate(nextProps, nextState, nextContext) {
-    return true //!this.state.loading;
   }
   
   componentDidMount(){
@@ -126,7 +118,6 @@ class Feed extends React.Component {
       // checks if the user has scrolled to the bottom of the element
       if (height_target <= Math.ceil(element.target.clientHeight) + 500) {
         // only add post if a post isn't already loading
-        
         if(this.state.loading === true) {
           if(this.state.queue === false){ // Loading and not queuing
             this.state.queue = true
@@ -143,17 +134,15 @@ class Feed extends React.Component {
     }
   }
 
-  moreClick(){
+  moreClick = () => {
     console.log("Clicked moreClick")
     window.open("https://github.com/LeoLinRui/SSTP/wiki", "_blank")
   }
 
-  exploreClick(){
-    console.log("Clicked exploreClick")
-  }
-
-  profileClick(){
+  profileClick = (e) => {
     console.log("Clicked profileClick")
+    e.preventDefault()
+    this.setState({anchorEl: Boolean(this.state.anchorEl) ? false:e.currentTarget})
   }
 
   render() {
@@ -169,6 +158,11 @@ class Feed extends React.Component {
             <SearchIcon classname="topIcon" onClick={this.exploreClick}/>
             <MoreHorizIcon classname="topIcon" onClick={this.moreClick}/>
           </div>
+          <ViewSelector 
+            anchorEl={this.state.anchorEl} 
+            setAnchorEl={(val)=>this.setState({anchorEl:val})}
+            viewerObj={this.props.viewers}
+          />
         </h2>
     }
 

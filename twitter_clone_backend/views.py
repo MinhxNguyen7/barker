@@ -9,8 +9,11 @@ from .serializers import TweetSerializer, PosterSerializer
 from .models import Tweet, Poster, Explanation, Viewer, Article
 
 import random
+from string import ascii_letters
 import os.path
 from glob import glob
+
+from .helpers import fetchImg
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -67,10 +70,16 @@ class WholePostFromID(generics.GenericAPIView):
         explanation = post.explanation
         article = post.article
 
+        
+        if post.article is None:
+            text = post.text
+        else:
+            text = " ".join(article.text.split(" ")[:30])
+        
         def image_cat_gen():
-            category = "test"
+            category = fetchImg(text)
             api_base = "/api/img/"
-            return  api_base + category + "/"
+            return api_base+category+"/"+''.join(random.choice(ascii_letters) for c in range(10)) if category is not None else None
 
         response = dict(
             # Poster info
@@ -79,7 +88,7 @@ class WholePostFromID(generics.GenericAPIView):
             avatar = poster.avatar,
             verified = poster.verified,
             # Post content
-            text = post.text if post.article is None else " ".join(article.text.split(" ")[:30]),
+            text = text,
             media = post.image if post.article is None else "news:"+ str(article.id),
             img = image_cat_gen(),
             # Explanation

@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf.urls import url
 
 from twitter_clone_backend import views
@@ -34,7 +34,7 @@ urlpatterns = [
     # Gets list of post IDs for a viewer
     path('api/ViewerToId/<str:viewer_name>/', views.ViewerToIdList.as_view({"get": "list"}), name='viewer-to-id-view'),
     # Gets custom local image by category
-    path('api/img/<str:category>/', views.CustomImageView.as_view(), name='custom-image-view'),
+    path('api/img/<str:category>/<str:shit>', views.CustomImageView.as_view(), name='custom-image-view'),
     # 
     path('api/article/<int:article_id>/', views.ArticleView.as_view(), name='article-from-id-view'),
     # For frontend

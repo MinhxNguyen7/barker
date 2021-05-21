@@ -4,7 +4,7 @@ import ReactCardFlip from 'react-card-flip';
 import VisibilitySensor from 'react-visibility-sensor';
 
 import "./Post.css";
-import { Avatar, Card, CardImg } from "@material-ui/core";
+import { Avatar, Card, CardMedia } from "@material-ui/core";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import RepeatIcon from "@material-ui/icons/Repeat";
@@ -48,6 +48,7 @@ class Post extends React.Component{
       media = (
         <a className="news__a" href={news_url} target="_blank" rel="noopener noreferrer">
           <Card className="news__card" style={{paddingRight: "20px"}}>
+            <CardMedia image={this.props.img}/>
             <div className="cardTextDiv">
               {this.props.text.split(" ").slice(0,20).join(" ")+"..."}
             </div>
@@ -93,7 +94,13 @@ class Post extends React.Component{
         console.log("play!")
       }
       else if (media_url === "" || media_url == null){
-        media = ""
+        const img_url = this.props.img
+        if(img_url){
+          media = <img src={img_url}/>
+          // console.log("here: " + img_url)
+          // console.log(media)
+        }
+        else media=<div/>
       }
       else{
         media = <img src={media_url} alt=""/>

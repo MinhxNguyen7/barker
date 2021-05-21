@@ -59,7 +59,7 @@ class Sidebar extends React.Component {
           onClose={()=>this.setState({anchorEl:false})}
         >{viewers.list.map((viewer, index) => (
           <MenuItem key={index}
-          onClick={()=>viewers.setNum(index)}
+          onClick={()=>{viewers.setNum(index);this.setState({anchorEl:false})}}
           >
             <div class="viewerOptionAvatarDiv" style={{padding:"5px"}}>
               <Avatar src={"/api/img/Website/"+String(Math.round(Math.random()*1000))}/>

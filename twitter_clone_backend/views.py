@@ -49,7 +49,7 @@ class ViewerToIdList(viewsets.ModelViewSet):
             tweet_set.filter(article__isnull=False).values_list('id', flat=True).order_by("?")
         )
         # Return limit of 200 news tweet ids
-        news_tweet_ids = news_tweet_ids[:50] if len(news_tweet_ids)>50 else news_tweet_ids
+        news_tweet_ids = news_tweet_ids[:200] if len(news_tweet_ids)>200 else news_tweet_ids
         
         return JsonResponse({"tweetIds":tweet_ids, "newsTweetIds":news_tweet_ids})
 

@@ -40,9 +40,9 @@ import numpy as np
 import re
 
 def fetchImg(tweet_txt: str):
-    RAND_PROB = 0.08
-    SCREEN_PROB = 0.02
-    COMIC_PROB = 0.02
+    RAND_PROB = 0.2
+    SCREEN_PROB = 0.05
+    COMIC_PROB = 0.05
 
     def chooseRand(inp:list):
         assert type(inp) is list

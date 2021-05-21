@@ -1,2 +1,15 @@
+.NewsCard {
+  overflow-y: scroll;
+}
 
+.newsCard__a {
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000000d8;
+}
 
+.newsCardDiv {
+  text-decoration: none;
+  font-size: smaller;
+}

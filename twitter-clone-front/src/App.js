@@ -44,7 +44,7 @@ export default class App extends React.Component {
               <div className="app">
                 <Sidebar viewers={viewersObj}/>
                 <Feed viewers={viewersObj}/>
-                <Widgets />
+                <Widgets viewers={viewersObj}/>
               </div>
               )
     }

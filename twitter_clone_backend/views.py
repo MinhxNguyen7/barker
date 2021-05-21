@@ -35,10 +35,23 @@ class ViewerToIdList(viewsets.ModelViewSet):
         # List of posters' names who are followed by the viewer above
         following_list = Poster.objects.filter(viewer__name=viewer_name).values_list('username', flat=True)
 
-        # 'Pure' int list of post IDs
-        tweet_ids = list(Tweet.objects.filter(poster__username__in=following_list).values_list('id', flat=True))
+        tweet_set = Tweet.objects.filter(poster__username__in=following_list)
 
-        return JsonResponse({"tweetIds": tweet_ids})
+        # 'Pure' int list of post IDs
+        tweet_ids = list(
+            tweet_set.values_list('id', flat=True).order_by("?")
+            )
+        # Limit to 2000 tweet ids
+        tweet_ids = tweet_ids[:2000] if len(tweet_ids)>2000 else tweet_ids
+
+        # Int list of post IDs that are associated with a news article
+        news_tweet_ids = list(
+            tweet_set.filter(article__isnull=False).values_list('id', flat=True).order_by("?")
+        )
+        # Return limit of 200 news tweet ids
+        news_tweet_ids = news_tweet_ids[:50] if len(news_tweet_ids)>50 else news_tweet_ids
+        
+        return JsonResponse({"tweetIds":tweet_ids, "newsTweetIds":news_tweet_ids})
 
 
 class TweetsView(viewsets.ModelViewSet):

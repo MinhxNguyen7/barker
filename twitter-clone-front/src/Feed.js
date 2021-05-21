@@ -25,7 +25,7 @@ class Feed extends React.Component {
 
   // Only update DOM when things aren't loading
   shouldComponentUpdate(nextProps, nextState, nextContext) {
-    return !this.state.loading;
+    return true //!this.state.loading;
   }
   
   componentDidMount(){
@@ -75,7 +75,6 @@ class Feed extends React.Component {
         .then(reponse => {
           this.setState({loading: true})
           let post = reponse.data;
-          // console.log(post)
 
           // For random name generation
           if(post['username'].startsWith("random:")){
@@ -183,10 +182,11 @@ class Feed extends React.Component {
               explanation={post.explanation}
               avatar={post.avatar}
               media={post.media}
+              img={post.img}
             />
           ))}
         </FlipMove>
-        <button onClick={()=>this.forceUpdate()}>click</button>
+        <button onClick={()=>this.addPost()}>click</button>
         </div>
     );
   }

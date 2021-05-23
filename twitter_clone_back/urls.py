@@ -26,7 +26,7 @@ urlpatterns = [
     # Gets all the info in a post
     path('api/wholePost/<int:id>/', views.WholePostFromID.as_view(), name='whole-post-from-id-view'),
     # Gets a list of all Tweets
-    path('api/tweets/', views.TweetsView.as_view({"get": "list"})),
+    # path('api/tweets/', views.TweetsView.as_view({"get": "list"})),
     # Gets a list of all Viewers
     path('api/viewers/', views.ViewersView.as_view({"get": "list"})),
     # Gets list that this viewer follows. Yes, the name is confusing
@@ -35,7 +35,7 @@ urlpatterns = [
     path('api/ViewerToId/<str:viewer_name>/', views.ViewerToIdList.as_view({"get": "list"}), name='viewer-to-id-view'),
     # Gets custom local image by category
     path('api/img/<str:category>/<str:shit>', views.CustomImageView.as_view(), name='custom-image-view'),
-    # 
+    # Gets full article
     path('api/article/<int:article_id>/', views.ArticleView.as_view(), name='article-from-id-view'),
     # For frontend
     url(r'^', views.Frontend.as_view(), name='frontend')

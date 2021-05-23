@@ -5,6 +5,7 @@ import Sidebar from "./Sidebar";
 import Feed from "./Feed";
 import Widgets from "./Widgets";
 import Article from "./Article"
+import ViewSelector from "./ViewSelector"
 
 import "./App.css";
 import axios from "axios";
@@ -13,7 +14,7 @@ import axios from "axios";
 export default class App extends React.Component {
   constructor(props){
     super(props)
-    this.state = {viewerNum: 0, viewersList:[]}
+    this.state = {viewerNum: 0, viewersList:[], switcherAnchor: false, loaded: false}
   }
 
   componentDidMount(){
@@ -21,8 +22,11 @@ export default class App extends React.Component {
       axios
         .get(settings.GET_VIEWERS_URL)
         .then(response =>{
-          this.setState({viewersList: response.data})
-          console.log("Recieved users: " + this.state.viewersList)
+          this.setState({viewersList: response.data}, 
+            ()=>this.setState({loaded: true}, 
+              ()=>{this.forceUpdate();console.log("Recieved users: " + this.state.viewersList)}
+            )
+          )
         })
         .catch(err => console.log("Error retrieving viewers list: " + err))
     }
@@ -30,7 +34,21 @@ export default class App extends React.Component {
 
   setViewer = (viewerNum) => {
     window.scrollTo(0,0)
-    this.setState({viewerNum: viewerNum})
+    this.setState({viewerNum: viewerNum}, ()=>this.forceUpdate())
+  }
+
+  shouldComponentUpdate(prevProps, prevState){
+    if(prevState.viewerNum !== this.state.viewerNum) console.log("Current viewerNum: "+String(this.state.viewerNum))
+    if(prevState.viewersList !== this.state.viewersList) console.log("Current viewersList: "+String(this.state.viewersList))
+    return true
+  }
+
+  switchClick = (e) =>{
+    e.preventDefault()
+    this.setState(
+      {switcherAnchor: Boolean(this.state.switcherAnchor) ? false:e.currentTarget},
+      ()=>console.log(this.state.switcherAnchor)
+    )
   }
 
   render(){
@@ -40,11 +58,18 @@ export default class App extends React.Component {
     if(pathname === "/"){
       const viewersObj = {
         list: this.state.viewersList, num: this.state.viewerNum, setNum: this.setViewer}
+      const viewer = String(this.state.viewersList[this.state.viewerNum])
       body = (
               <div className="app">
-                <Sidebar viewers={viewersObj}/>
-                <Feed viewers={viewersObj}/>
-                <Widgets viewers={viewersObj}/>
+                <Sidebar switchClick={this.switchClick}/>
+                <Feed viewer={viewer} switchClick={this.switchClick}/>
+                <Widgets viewer={viewer}/>
+
+                <ViewSelector 
+                  anchorEl={this.state.switcherAnchor} 
+                  setAnchorEl={(val)=>{{this.setState({switcherAnchor:val})}}}
+                  viewerObj={viewersObj}
+                />
               </div>
               )
     }

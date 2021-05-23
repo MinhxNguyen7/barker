@@ -17,7 +17,7 @@ import settings from "./functionals/settings"
 class Feed extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {loading: false, queue: false, posts: [], idList: [], viewedList: []};
+    this.state = {loading: false, queue: false, posts: [], idList: []};
   }
   
   componentDidMount(){
@@ -30,23 +30,21 @@ class Feed extends React.Component {
       this.state.queue = false
     }
     // Check if Viewer has been changed
-    const prevViewer = prevProps.viewers.list[prevProps.viewers.num] 
-    const currentViewer = this.props.viewers.list[this.props.viewers.num] 
-    if(prevViewer !== currentViewer){
+    if(prevProps.viewer !== this.props.viewer){
       this.updateIdList()
     }
   }
 
   updateIdList(){
     this.setState({posts: [], loading: true})
-      const currentViewer = this.props.viewers.list[this.props.viewers.num] 
+      const currentViewer = this.props.viewer
       const viewerURL = settings.GET_IDs_FROM_VIEWER_URL + currentViewer + "/"
       console.log("Getting IDs from: " + viewerURL)
       axios
         .get(viewerURL)
         .then((reponse)=>{
           const tweetIds = reponse.data.tweetIds
-          console.log(tweetIds)
+          // console.log(tweetIds)
   
           this.setState({idList: tweetIds})
           this.setState({loading: false})
@@ -141,8 +139,7 @@ class Feed extends React.Component {
 
   profileClick = (e) => {
     console.log("Clicked profileClick")
-    e.preventDefault()
-    this.setState({anchorEl: Boolean(this.state.anchorEl) ? false:e.currentTarget})
+    this.props.switchClick(e)
   }
 
   render() {
@@ -158,11 +155,6 @@ class Feed extends React.Component {
             {/* <SearchIcon classname="topIcon" onClick={this.exploreClick}/> */}
             <MoreHorizIcon classname="topIcon" onClick={this.moreClick}/>
           </div>
-          <ViewSelector 
-            anchorEl={this.state.anchorEl} 
-            setAnchorEl={(val)=>this.setState({anchorEl:val})}
-            viewerObj={this.props.viewers}
-          />
         </h2>
     }
 

@@ -2,6 +2,14 @@ import React from "react";
 import { Avatar, Button, Menu, MenuItem } from "@material-ui/core";
 
 export default class ViewSelector extends React.Component{
+  shouldComponentUpdate(prevProps){
+    // console.log(this.props.anchorEl)
+    if(prevProps.anchorEl !== this.props.anchorEl){
+      return true
+    }
+    return false
+  }
+
   render(){
     const {list, num, setNum} = this.props.viewerObj
     return(

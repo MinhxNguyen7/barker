@@ -9,45 +9,38 @@ import settings from "./functionals/settings"
 class Widgets extends React.Component {
   constructor(props){
     super(props)
-    this.state = {idList:[]}
+    this.state = {idList: [], needUpdate:true, loading: false}
   }
 
-  updateList = () => {
-    const viewerObj = this.props.viewers
-    const viewer = viewerObj.list[viewerObj.num===viewerObj.list.length-1?0:viewerObj.num+1]
-    const viewerURL = settings.GET_IDs_FROM_VIEWER_URL + viewer + "/"
+  componentDidUpdate(prevProps){
+    if(prevProps.viewer !== this.props.viewer){
+      this.updateIdList()
+    }
+  }
+
+  componentDidMount(){
+    this.updateIdList()
+  }
+
+  updateIdList = () => {
+    this.setState({idList: [], loading: true})
+      const currentViewer = this.props.viewer
+      const viewerURL = settings.GET_IDs_FROM_VIEWER_URL + currentViewer + "/"
+      console.log("Getting news IDs from: " + viewerURL)
+      axios
+        .get(viewerURL)
+        .then((reponse)=>{
+          let newsTweetIds = reponse.data.newsTweetIds
+          // Limit to 8 ids
+          newsTweetIds = newsTweetIds.slice(0,newsTweetIds.length>6?6:newsTweetIds.length)
+          console.log(newsTweetIds)
   
-    console.log("Getting news IDs from: " + viewerURL)
-    let newsOptions = []
-    axios
-      .get(viewerURL)
-      .then((reponse)=>{
-        const newsTweetIds = reponse.data.newsTweetIds
-        console.log(newsTweetIds)
-        newsTweetIds.splice(0,5).forEach(id => {
-          newsOptions.push(<NewsCard id={id} key={"newsCard__"+id}/>)
-        });
-
-        this.setState({
-          idList: newsTweetIds.splice(0,5),
-          newsOptions: newsOptions
+          this.setState({idList: newsTweetIds})
+          this.setState({loading: false})
         })
-        this.forceUpdate()
-      })
-      .catch(err=>{console.log(err)})
+        .catch(err=>{console.log(err)})
   }
 
-  shouldComponentUpdate(prevProps, prevState){
-    if(prevProps.viewers.num !== this.props.viewers.num){
-      this.updateList()
-      return true
-    }
-    if(prevState.idList !== this.state.idList){
-      console.log("idList-powered update")
-      return true
-    }
-    return false
-  }
 
   render(){
     return (
@@ -56,7 +49,11 @@ class Widgets extends React.Component {
         <div className="topTextContainer__div">
           <h2 className="topText">Latest News</h2>
           <div className="NewsCards" style={{paddingTop: "10px"}}>
-            <FlipMove>{this.state.newsOptions}</FlipMove>
+            <FlipMove>{
+              this.state.idList.map((id, index)=>(
+                <NewsCard id={id} key={index}/>
+              ))
+            }</FlipMove>
           </div>
         </div>
       </div>

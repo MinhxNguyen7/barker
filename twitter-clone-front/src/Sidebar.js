@@ -35,15 +35,13 @@ class Sidebar extends React.Component {
   }
 
   render(){
-    const viewers = this.props.viewers
-
     return (
       <div className="sidebar">
         <img className="sidebar__twitterIcon" src={PageIcon} alt="Barker Icon"/>
 
         <SidebarOption active Icon={HomeIcon} text={scramble("Home")} />
         <SidebarOption Icon={SearchIcon} text={"Explore"} />
-        <SidebarOption Icon={PermIdentityIcon} text="Profile" onClick={this.handleClick}/>
+        <SidebarOption Icon={PermIdentityIcon} text="Profile" onClick={this.props.switchClick}/>
         <SidebarOption Icon={MoreHorizIcon} text="More" onClick={()=>window.open("https://github.com/LeoLinRui/SSTP/wiki", "_blank")}/>
 
         <Button variant="outlined" className="sidebar__tweet" onClick={this.bark}>
@@ -52,13 +50,6 @@ class Sidebar extends React.Component {
         <audio className="bark-sound">
           <source src={dog}></source>
         </audio>
-
-        {/* Menu for changing viewers */}
-        <ViewSelector 
-          anchorEl={this.state.anchorEl} 
-          setAnchorEl={(val)=>this.setState({anchorEl:val})}
-          viewerObj={viewers}
-          />
       </div>
     );
   }

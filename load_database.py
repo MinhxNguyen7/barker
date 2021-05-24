@@ -181,19 +181,41 @@ def tweet_parse_test(
 ######################################## News stuff ########################################
 def news_processing(
   fp: str,
-  separator="\n===================="
+  separator="\n====================\n",
+  normalize_encoding=True
   ):
+
+  if normalize_encoding:
+    cnm = CnM.normalize(fp)  # normalize the encoding
+    encoding = cnm.encoding
+    fp = append_before_ext(fp, "-" + encoding)  # select the normalized text
+  
   # Load articles values into df and remove delimiters
-  df = pd.read_csv(fp, sep=separator, names=['article'], dtype="str")
+  df = pd.read_csv(
+    fp,
+    encoding=encoding,
+    error_bad_lines=False,
+    header=None,
+    names=["article"],
+    sep=separator
+  )
   df = df.loc[df.article!="====================", :]
 
-  # remove some tags
+  if normalize_encoding:
+    os.remove(fp)  # delete the normalized text file (if enabled)
+
+  arr = np.squeeze(df[df['article'] != "===================="].values)
+
   articles = []
-  for a in df.article:
-    article = a
-    article = article.replace("(CNN)", "")
-    article = article.replace("<|startoftext|>", "")
-    articles.append(article)
+  for a in arr:
+    if len(a) > 20:
+      article = a
+      article = article.replace("(CNN)", "")
+      article = article.replace("<|startoftext|>", "")
+      article = article.replace("close Video ", "")
+      article = article.replace("Image 2 of 2 ", "")
+      article = article.replace("&apos", "'")
+      articles.append(article)
 
   return articles
 
@@ -201,6 +223,9 @@ def news_processing(
 def load_news_to_db(tweets_txt: str, poster_name: str, explanation_name: str):
     start = time()
     articles = news_processing(tweets_txt)
+    
+    poster = Poster.objects.get(pk=poster_name)
+    explanation = Explanation.objects.get(pk=explanation_name)
 
     for idx, a in enumerate(articles):
         article = Article()
@@ -209,9 +234,9 @@ def load_news_to_db(tweets_txt: str, poster_name: str, explanation_name: str):
         article.text = a
         article.source = explanation_name
         article.save()
-        tweet.poster = Poster.objects.get(pk=poster_name)
+        tweet.poster = poster
         tweet.article = article
-        tweet.explanation = Explanation.objects.get(pk=explanation_name)
+        tweet.explanation = explanation
         tweet.text = "news from "+tweet.explanation.pk
         tweet.save()
 

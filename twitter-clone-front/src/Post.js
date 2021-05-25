@@ -37,7 +37,7 @@ class Post extends React.Component{
       explanation = htmlTagger(this.props.explanation, 'link')
     }
     
-    text = htmlTagger(this.props.text, 'hashtag')
+    text = htmlTagger(htmlTagger(this.props.text, 'hashtag'), 'atSymbol')
     
     if(media_url.startsWith("news:")){
       const news_url = [window.location.origin, "news", media_url.substring(5)].join("/")

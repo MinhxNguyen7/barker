@@ -54,8 +54,12 @@ export function htmlTagger(text, mode='link'){
       replacer = function(){return '<a href="' + arguments[2] + '" target="_blank">' + (arguments[7] || arguments[2]) + '</a>'}
       break
     case 'hashtag':
-      regex=/#(\S*)/g
-      replacer=function(){return '<a style="color:#2b9ce2;cursor: pointer">#'+arguments[1]+'</a>'}
+      regex=/(#\S*)/gi
+      replacer=function(){return '<a style="color:#2b9ce2;cursor: pointer">'+arguments[1]+'</a>'}
+      break
+    case 'atSymbol':
+      regex=/(@\S*)/g
+      replacer=function(){return '<a style="color:#2b9ce2;cursor: pointer">'+arguments[1]+'</a>'}
       break
     default:
       return text

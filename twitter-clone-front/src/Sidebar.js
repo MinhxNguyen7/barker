@@ -37,12 +37,13 @@ class Sidebar extends React.Component {
   render(){
     return (
       <div className="sidebar">
-        <img className="sidebar__twitterIcon" src={PageIcon} alt="Barker Icon"/>
+        <img className="sidebar__twitterIcon" src={PageIcon} style={{cursor:"pointer"}}
+          onClick={()=>window.open("https://github.com/MinhTheMerciless/twitter_clone/wiki", "_blank")} alt="Barker Icon"/>
 
         <SidebarOption active Icon={HomeIcon} text={scramble("Home")} />
         <SidebarOption Icon={SearchIcon} text={"Explore"} />
         <SidebarOption Icon={PermIdentityIcon} text="Profile" onClick={this.props.switchClick}/>
-        <SidebarOption Icon={MoreHorizIcon} text="More" onClick={()=>window.open("https://github.com/LeoLinRui/SSTP/wiki", "_blank")}/>
+        <SidebarOption Icon={MoreHorizIcon} text="More" onClick={()=>window.open("https://github.com/MinhTheMerciless/twitter_clone/wiki", "_blank")}/>
 
         <Button variant="outlined" className="sidebar__tweet" onClick={this.bark}>
           Bark

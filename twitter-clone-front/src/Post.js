@@ -2,6 +2,7 @@ import React from "react";
 import ReactPlayer from 'react-player/lazy';
 import ReactCardFlip from 'react-card-flip';
 import VisibilitySensor from 'react-visibility-sensor';
+import {htmlTagger} from "./functionals/utils"
 
 import "./Post.css";
 import { Avatar, Card, CardMedia } from "@material-ui/core";
@@ -33,15 +34,10 @@ class Post extends React.Component{
       explanation = "This Bark current does not have an explanation"
     }
     else{
-      explanation = this.props.explanation.replace( // eslint-disable-next-line
-      /(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi,
-      function(){return '<a href="' + arguments[2] + '" target="_blank">' + (arguments[7] || arguments[2]) + '</a>' }
-    )}
+      explanation = htmlTagger(this.props.explanation, 'link')
+    }
     
-    text = this.props.text.replace( // eslint-disable-next-line
-      /(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi,
-      function(){return '<a href="' + arguments[2] + '"target="_blank">' + (arguments[7] || arguments[2]) + '</a>'}
-    )
+    text = htmlTagger(this.props.text, 'hashtag')
     
     if(media_url.startsWith("news:")){
       const news_url = [window.location.origin, "news", media_url.substring(5)].join("/")

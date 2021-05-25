@@ -46,4 +46,25 @@ export function randomUser(){
   return fake_user
 }
 
-export default {scramble, randomUser, randomDate}
+export function htmlTagger(text, mode='link'){
+  let regex, replacer
+  switch(mode){
+    case 'link': // Tags for links
+      regex=/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi
+      replacer = function(){return '<a href="' + arguments[2] + '" target="_blank">' + (arguments[7] || arguments[2]) + '</a>'}
+      break
+    case 'hashtag':
+      regex=/#(\S*)/g
+      replacer=function(){return '<a style="color:#2b9ce2;cursor: pointer">#'+arguments[1]+'</a>'}
+      break
+    default:
+      return text
+    }
+
+  let new_text = text
+  new_text = new_text.replace(regex,replacer)
+  // new_text = new_text.replace(,'<a href="">#$1</a>')
+  return new_text
+}
+
+export default {scramble, randomUser, randomDate, htmlTagger}

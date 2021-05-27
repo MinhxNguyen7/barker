@@ -40,7 +40,7 @@ class Sidebar extends React.Component {
         <img className="sidebar__twitterIcon" src={PageIcon} style={{cursor:"pointer"}}
           onClick={()=>window.open("https://github.com/MinhTheMerciless/twitter_clone/wiki", "_blank")} alt="Barker Icon"/>
 
-        <SidebarOption active Icon={HomeIcon} text={scramble("Home")} />
+        <SidebarOption active Icon={HomeIcon} text="Home" />
         <SidebarOption Icon={SearchIcon} text={"Explore"} onClick={()=>{window.alert("Page in progress")}}/>
         <SidebarOption Icon={PermIdentityIcon} text="Profile" onClick={this.props.switchClick}/>
         <SidebarOption Icon={MoreHorizIcon} text="More" onClick={()=>window.open("https://github.com/MinhTheMerciless/twitter_clone/wiki", "_blank")}/>

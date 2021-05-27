@@ -19,12 +19,12 @@ export default class App extends React.Component {
 
   componentDidMount(){
     if(window.location.pathname === "/"){ // Only add new posts on main screen
-      axios
+      axios // Get List of viewers
         .get(settings.GET_VIEWERS_URL)
         .then(response =>{
-          this.setState({viewersList: response.data}, 
+          this.setState({viewersList: response.data.sort()}, // Sorts viewers in alphabetical order
             ()=>this.setState({loaded: true}, 
-              ()=>{this.forceUpdate();console.log("Recieved users: " + this.state.viewersList)}
+              ()=>console.log("Recieved users: " + this.state.viewersList)
             )
           )
         })

@@ -69,7 +69,7 @@ class Feed extends React.Component {
           let post = reponse.data;
 
           // For random name generation
-          if(post['username'].startsWith("random:")){
+          if(post['username'].startsWith("random:") || post['username']==="AmericanNews"){
             const fake_user = randomUser()
 
             post['username'] = fake_user['username'];

@@ -31,8 +31,14 @@ class Widgets extends React.Component {
         .get(viewerURL)
         .then((reponse)=>{
           let newsTweetIds = reponse.data.newsTweetIds
-          // Limit to 8 ids
-          newsTweetIds = newsTweetIds.slice(0,newsTweetIds.length>6?6:newsTweetIds.length)
+          // Limit number of ids
+          const max_length = this.props.max_length
+          if(max_length!==-1){
+            newsTweetIds = newsTweetIds.slice(0,newsTweetIds.length>max_length?max_length:newsTweetIds.length)
+          }
+          if(max_length == undefined){
+            newsTweetIds = newsTweetIds.slice(0,newsTweetIds.length>6?6:newsTweetIds.length)
+          }
           console.log(newsTweetIds)
   
           this.setState({idList: newsTweetIds})

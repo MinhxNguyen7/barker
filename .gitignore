@@ -137,3 +137,5 @@ twitter-clone-front/src/firebase-creds.json
 twitter_clone_backend/imgs/*/*.jpeg
 twitter_clone_backend/imgs/*/*.jpg
 twitter_clone_backend/imgs/*/*.png
+
+static/

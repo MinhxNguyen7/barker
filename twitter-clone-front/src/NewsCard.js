@@ -19,7 +19,7 @@ export default class NewsCard extends React.Component{
       .then((reponse)=>{
         let post = reponse.data;
         this.setState({
-          text: post.text.split(" ").splice(0,15).join(" "), 
+          text: post.text.split(" ").splice(0,20).join(" "), 
           media_url: post.media
         })
       })

@@ -18,14 +18,13 @@ export default class App extends React.Component {
   }
 
   componentDidMount(){
-    const pathname = window.location.pathname
-    if(pathname === "/"){ // Only add new posts on main screen
-      axios // Get List of viewers
+    if(window.location.pathname === "/"){ // Only add new posts on main screen
+      axios
         .get(settings.GET_VIEWERS_URL)
         .then(response =>{
-          this.setState({viewersList: response.data.sort()}, // Sorts viewers in alphabetical order
+          this.setState({viewersList: response.data}, 
             ()=>this.setState({loaded: true}, 
-              ()=>console.log("Recieved users: " + this.state.viewersList)
+              ()=>{this.forceUpdate();console.log("Recieved users: " + this.state.viewersList)}
             )
           )
         })
@@ -54,13 +53,12 @@ export default class App extends React.Component {
 
   render(){
     const pathname = window.location.pathname
-    const viewer = String(this.state.viewersList[this.state.viewerNum])
 
     let body = null
     if(pathname === "/"){
       const viewersObj = {
         list: this.state.viewersList, num: this.state.viewerNum, setNum: this.setViewer}
-      
+      const viewer = String(this.state.viewersList[this.state.viewerNum])
       body = (
               <div className="app">
                 <Sidebar switchClick={this.switchClick}/>

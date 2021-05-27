@@ -60,13 +60,18 @@ export default class App extends React.Component {
     if(pathname === "/"){
       const viewersObj = {
         list: this.state.viewersList, num: this.state.viewerNum, setNum: this.setViewer}
+      console.log(window.innerWidth)
+      
+      let widgets // only load widgets if the screen big enough for it to be displayed
+      if(window.innerWidth > 1024) widgets = <Widgets viewer={viewer}/>
+      else widgets = null
       
       body = (
               <div className="app">
                 <Sidebar switchClick={this.switchClick}/>
                 <Feed viewer={viewer} switchClick={this.switchClick}/>
-                <Widgets viewer={viewer}/>
-
+                {widgets}
+                
                 <ViewSelector 
                   anchorEl={this.state.switcherAnchor} 
                   setAnchorEl={(val)=>{{this.setState({switcherAnchor:val})}}}

@@ -134,7 +134,7 @@ class Feed extends React.Component {
 
   moreClick = () => {
     console.log("Clicked moreClick")
-    window.open("https://github.com/LeoLinRui/SSTP/wiki", "_blank")
+    window.open("https://github.com/MinhTheMerciless/twitter_clone/wiki", "_blank")
   }
 
   profileClick = (e) => {

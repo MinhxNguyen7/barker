@@ -142,6 +142,11 @@ class Feed extends React.Component {
     this.props.switchClick(e)
   }
 
+  exploreClick = () => {
+    console.log("Clicked exploreClick")
+    window.alert("Page in progress")
+  }
+
   render() {
     let head = null
     if(window.innerWidth > 420){
@@ -152,7 +157,7 @@ class Feed extends React.Component {
         <h2>
           <div className="topIconDiv">
             <PermIdentityIcon classname="topIcon" onClick={this.profileClick}/>
-            {/* <SearchIcon classname="topIcon" onClick={this.exploreClick}/> */}
+            <SearchIcon classname="topIcon" onClick={this.exploreClick}/>
             <MoreHorizIcon classname="topIcon" onClick={this.moreClick}/>
           </div>
         </h2>

@@ -19,7 +19,7 @@ export default class App extends React.Component {
 
   componentDidMount(){
     const pathname = window.location.pathname
-    if(pathname === "/"){ // Only add new posts on main screen
+    if(pathname === "/" || (pathname==="/explore"&&window.innerWidth<1024)){ // Only add new posts on main screen
       axios // Get List of viewers
         .get(settings.GET_VIEWERS_URL)
         .then(response =>{
@@ -80,6 +80,7 @@ export default class App extends React.Component {
               </div>
               )
     }
+    if(pathname === "/explore") body = <div className="app"><Widgets viewer={viewer} max_length={100}/></div>
     if(pathname.startsWith("/news/")){
       let id = pathname.substr(6)
       // Remove trailing slash in article ID

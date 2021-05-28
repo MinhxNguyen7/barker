@@ -35,7 +35,7 @@ class Feed extends React.Component {
     }
   }
 
-  updateIdList(){
+  updateIdList = () => {
     this.setState({posts: [], loading: true})
       const currentViewer = this.props.viewer
       const viewerURL = settings.GET_IDs_FROM_VIEWER_URL + currentViewer + "/"
@@ -144,7 +144,9 @@ class Feed extends React.Component {
 
   exploreClick = () => {
     console.log("Clicked exploreClick")
-    window.alert("Page in progress")
+    window.alert("The explore page is in progress \n \
+      Please don't visit it too much because it's so unoptimized it actually costs me money")
+    window.open("/explore", "_self")
   }
 
   render() {

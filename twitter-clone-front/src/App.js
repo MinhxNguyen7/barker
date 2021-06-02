@@ -47,8 +47,7 @@ export default class App extends React.Component {
   switchClick = (e) =>{
     e.preventDefault()
     this.setState(
-      {switcherAnchor: Boolean(this.state.switcherAnchor) ? false:e.currentTarget},
-      ()=>console.log(this.state.switcherAnchor)
+      {switcherAnchor: Boolean(this.state.switcherAnchor) ? false:e.currentTarget}
     )
   }
 
@@ -60,7 +59,7 @@ export default class App extends React.Component {
     if(pathname === "/"){
       const viewersObj = {
         list: this.state.viewersList, num: this.state.viewerNum, setNum: this.setViewer}
-      console.log(window.innerWidth)
+      // console.log(window.innerWidth)
       
       let widgets // only load widgets if the screen big enough for it to be displayed
       if(window.innerWidth > 1024) widgets = <Widgets viewer={viewer}/>

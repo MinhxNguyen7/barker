@@ -39,7 +39,7 @@ class Widgets extends React.Component {
           if(max_length == undefined){
             newsTweetIds = newsTweetIds.slice(0,newsTweetIds.length>6?6:newsTweetIds.length)
           }
-          console.log(newsTweetIds)
+          // console.log(newsTweetIds)
   
           this.setState({idList: newsTweetIds})
           this.setState({loading: false})

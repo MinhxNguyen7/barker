@@ -244,3 +244,31 @@ def load_news_to_db(tweets_txt: str, poster_name: str, explanation_name: str):
 
     end = time()
     print(f"Loaded {len(articles)} articles in {end-start} seconds")
+
+######################################## VIRAT ########################################
+
+def load_virat(links, poster_username, explanation_name):
+    t = Tweet()
+    t.poster = Poster.objects.get(pk=poster_username)
+    t.explanation = Explanation.objects.get(pk=explanation_name)
+
+    for link in links:
+        t.image = link
+        t.save()
+        t.id = None
+
+
+virat_links = [
+    "https://youtu.be/W2svrzi70tc",
+    "https://youtu.be/BsYgmvvZRn4",
+    "https://youtu.be/9WG7kwsgXkY",
+    "https://youtu.be/7Ha-DO9Mzhw",
+    "https://youtu.be/TbPJ9UgpDYs",
+    "https://youtu.be/AAAWtiERFlI",
+    "https://youtu.be/aqQkBdit2CA",
+    "https://youtu.be/ThLXIGU6pE0",
+    "https://youtu.be/_Toz2ZV1AsI",
+    "https://youtu.be/yhwTmeqUPNY",
+    "https://youtu.be/2TqN5bKn6ig",
+    "https://youtu.be/MuxFxVz6fM0"
+]

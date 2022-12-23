@@ -11,7 +11,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.21.2",
     "firebase": "^7.24.0",
-    "firebase-admin": "^9.8.0",
+    "firebase-admin": "^11.4.1",
     "mocker-data-generator": "^2.12.0",
     "react": "^16.14.0",
     "react-card-flip": "^1.1.1",
